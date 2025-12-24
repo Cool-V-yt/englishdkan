@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnglishDkan</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Cairo', 'sans-serif'] },
+                    colors: {
+                        primary: { 50: '#fff7ed', 100: '#ffedd5', 500: '#f97316', 600: '#ea580c', 700: '#c2410c' },
+                        dark: { 800: '#1e293b', 900: '#0f172a' }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- External Libs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+
+    <style>
+        body { transition: background-color 0.3s ease, color 0.3s ease; }
+        .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.5); }
+        .glass-dark { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .dark ::-webkit-scrollbar-thumb { background: #475569; }
+        .page { display: none; opacity: 0; transform: translateY(10px); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .page.active { display: block; opacity: 1; transform: translateY(0); }
+        .float-anim { animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-5px); } 100% { transform: translateY(0px); } }
+        .stagger-anim { animation: slideIn 0.4s ease-out forwards; opacity: 0; }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+        .btn-press:active { transform: scale(0.95); }
+        .nav-link { transition: all 0.3s ease; border-right: 3px solid transparent; }
+        .nav-active { background: linear-gradient(90deg, rgba(249, 115, 22, 0.15) 0%, transparent 100%); border-right-color: #f97316; color: #f97316 !important; }
+        .nav-active i { color: #f97316; font-weight: bold; }
+
+        @media print {
+            body * { visibility: hidden; }
+            #printArea, #printArea * { visibility: visible; }
+            #printArea { position: absolute; left: 0; top: 0; width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; padding: 15px; }
+            .print-item { border: 2px dashed #000; padding: 10px; display: flex; flex-direction: column; align-items: center; background: white; color: black; }
+        }
+    </style>
+</head>
+<body class="bg-slate-100 dark:bg-slate-950 text-slate-800 dark:text-slate-200">
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="fixed inset-0 z-[200] bg-slate-900 flex flex-col items-center justify-center text-white">
+        <div class="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+        <p class="font-bold">جاري مزامنة البيانات السحابية...</p>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="fixed top-6 left-6 z-[100] transform transition-all duration-500 translate-x-[-200%] bg-white/90 dark:bg-slate-800/90 backdrop-blur border-r-4 border-orange-500 shadow-xl rounded-2xl p-4 flex items-center gap-4 min-w-[320px]">
+        <div id="toastIcon" class="text-2xl text-orange-500"></div>
+        <div>
+            <h4 class="font-bold text-slate-800 dark:text-white text-sm" id="toastTitle">إشعار</h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1" id="toastMsg">تم التنفيذ</p>
+        </div>
+    </div>
+
+    <!-- Login Screen -->
+    <div id="loginScreen" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900 overflow-hidden">
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-500/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
+        <div class="relative bg-white/10 backdrop-blur-xl border border-white/10 p-8 md:p-12 rounded-[2.5rem] shadow-2xl w-full max-w-md text-center float-anim mx-4">
+            <div class="w-20 h-20 bg-gradient-to-tr from-orange-400 to-orange-600 rounded-3xl mx-auto mb-6 flex items-center justify-center shadow-lg shadow-orange-500/30">
+                <i class="ph-fill ph-sneaker text-4xl text-white"></i>
+            </div>
+            <h1 class="text-3xl font-black text-white mb-2 tracking-tight">EnglishDkan</h1>
+            <p class="text-slate-400 mb-8 font-light text-sm">بوابة المزامنة السحابية</p>
+            <div class="space-y-6">
+                <input type="password" id="loginPass" readonly placeholder="••••" class="w-full bg-slate-800/50 border border-slate-700 text-white rounded-2xl px-12 py-4 text-center tracking-widest text-xl outline-none">
+                <div class="grid grid-cols-3 gap-3">
+                    <script>
+                        for(let i=1; i<=9; i++) document.write(`<button onclick="app.numInput('${i}')" class="bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">${i}</button>`);
+                    </script>
+                    <button onclick="app.numClear()" class="bg-red-500/20 text-red-400 font-bold py-4 rounded-2xl">C</button>
+                    <button onclick="app.numInput('0')" class="bg-white/10 text-white font-bold py-4 rounded-2xl">0</button>
+                    <button onclick="app.numDelete()" class="bg-white/10 text-white font-bold py-4 rounded-2xl">←</button>
+                </div>
+                <button onclick="app.login()" class="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white font-bold py-4 rounded-2xl shadow-lg btn-press">دخول</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- App Layout -->
+    <div id="mainApp" class="flex h-screen hidden overflow-hidden">
+        
+        <!-- Sidebar -->
+        <aside class="w-[280px] bg-white dark:bg-slate-900 text-slate-500 flex flex-col relative z-20 shadow-2xl border-l dark:border-slate-800">
+            <div class="p-8 pb-4">
+                <div class="flex items-center gap-3 text-slate-800 dark:text-white mb-8">
+                    <div class="w-10 h-10 bg-orange-600 rounded-xl flex items-center justify-center shadow-lg text-white">
+                        <i class="ph-fill ph-cubes text-2xl"></i>
+                    </div>
+                    <h2 class="font-bold text-xl leading-none">EnglishDkan</h2>
+                </div>
+                <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">القائمة</div>
+            </div>
+            
+            <nav class="flex-1 px-4 space-y-1 overflow-y-auto">
+                <button onclick="app.nav('dashboard')" class="nav-item nav-link w-full flex items-center gap-4 px-4 py-3.5 rounded-xl group nav-active" data-target="dashboard">
+                    <i class="ph ph-squares-four text-xl"></i> <span class="font-medium">لوحة التحكم</span>
+                </button>
+                <button onclick="app.nav('products')" class="nav-item nav-link w-full flex items-center gap-4 px-4 py-3.5 rounded-xl group" data-target="products">
+                    <i class="ph ph-tag text-xl"></i> <span class="font-medium">المنتجات</span>
+                </button>
+                <button onclick="app.nav('inventory')" class="nav-item nav-link w-full flex items-center gap-4 px-4 py-3.5 rounded-xl group" data-target="inventory">
+                    <i class="ph ph-warehouse text-xl"></i> <span class="font-medium">المخزون</span>
+                </button>
+                <button onclick="app.nav('pos')" class="nav-item nav-link w-full flex items-center gap-4 px-4 py-3.5 rounded-xl group" data-target="pos">
+                    <i class="ph ph-cash-register text-xl"></i> <span class="font-medium">نقطة البيع</span>
+                </button>
+                <button onclick="app.nav('returns')" class="nav-item nav-link w-full flex items-center gap-4 px-4 py-3.5 rounded-xl group" data-target="returns">
+                    <i class="ph ph-arrow-u-up-left text-xl"></i> <span class="font-medium">المرتجعات</span>
+                </button>
+                <button onclick="app.nav('users')" class="nav-item nav-link w-full flex items-center gap-4 px-4 py-3.5 rounded-xl group" data-target="users">
+                    <i class="ph ph-users text-xl"></i> <span class="font-medium">الموظفين</span>
+                </button>
+                <button onclick="app.nav('sales')" class="nav-item nav-link w-full flex items-center gap-4 px-4 py-3.5 rounded-xl group" data-target="sales">
+                    <i class="ph ph-chart-line-up text-xl"></i> <span class="font-medium">المبيعات</span>
+                </button>
+                <button onclick="app.nav('settings')" class="nav-item nav-link w-full flex items-center gap-4 px-4 py-3.5 rounded-xl group" data-target="settings">
+                    <i class="ph ph-gear text-xl"></i> <span class="font-medium">الإعدادات</span>
+                </button>
+            </nav>
+
+            <div class="p-6">
+                <button onclick="app.logout()" class="w-full flex items-center justify-center gap-2 bg-slate-100 dark:bg-slate-800 text-slate-500 py-3 rounded-xl transition-all font-bold btn-press">
+                    <i class="ph ph-sign-out text-lg"></i> خروج
+                </button>
+            </div>
+        </aside>
+
+        <!-- Content -->
+        <main class="flex-1 h-full overflow-y-auto bg-slate-100 dark:bg-slate-950 p-6 lg:p-10 relative">
+            <header class="flex justify-between items-end mb-10 stagger-anim">
+                <div>
+                    <h2 id="pageTitle" class="text-3xl font-black text-slate-800 dark:text-white">لوحة التحكم</h2>
+                    <p class="text-slate-500 dark:text-slate-400 font-medium text-sm">نظام المزامنة السحابية النشط</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button onclick="app.toggleTheme()" class="w-12 h-12 rounded-full bg-white dark:bg-slate-800 shadow-sm border flex items-center justify-center text-slate-600 dark:text-yellow-400">
+                        <i id="themeIcon" class="ph-fill ph-moon-stars text-xl"></i>
+                    </button>
+                    <div class="bg-white dark:bg-slate-800 pl-6 pr-2 py-2 rounded-full shadow-sm border flex items-center gap-3">
+                        <div class="flex flex-col items-end mr-3">
+                            <span class="text-[10px] text-slate-400 font-bold uppercase">الحساب</span>
+                            <span class="font-bold text-slate-800 dark:text-white text-sm" id="userDisplay">...</span>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600">
+                            <i class="ph-fill ph-user"></i>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard -->
+            <div id="dashboard" class="page active">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-white dark:bg-slate-800 p-6 rounded-3xl border flex items-center justify-between">
+                        <div><p class="text-slate-400 text-xs font-bold uppercase">المنتجات</p><h3 class="text-3xl font-black" id="statProducts">0</h3></div>
+                        <i class="ph-duotone ph-package text-4xl text-blue-500"></i>
+                    </div>
+                    <div class="bg-white dark:bg-slate-800 p-6 rounded-3xl border flex items-center justify-between">
+                        <div><p class="text-slate-400 text-xs font-bold uppercase">المبيعات</p><h3 class="text-3xl font-black" id="statSales">0</h3></div>
+                        <i class="ph-duotone ph-currency-dollar text-4xl text-green-500"></i>
+                    </div>
+                    <div class="bg-white dark:bg-slate-800 p-6 rounded-3xl border flex items-center justify-between">
+                        <div><p class="text-slate-400 text-xs font-bold uppercase">الموظفين</p><h3 class="text-3xl font-black" id="statUsers">0</h3></div>
+                        <i class="ph-duotone ph-users-three text-4xl text-purple-500"></i>
+                    </div>
+                    <div class="bg-white dark:bg-slate-800 p-6 rounded-3xl border flex items-center justify-between">
+                        <div><p class="text-slate-400 text-xs font-bold uppercase">المرتجعات</p><h3 class="text-3xl font-black" id="statReturns">0</h3></div>
+                        <i class="ph-duotone ph-arrow-u-up-left text-4xl text-orange-500"></i>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-slate-800 p-8 rounded-3xl border">
+                    <canvas id="mainChart" height="90"></canvas>
+                </div>
+            </div>
+
+            <!-- Products -->
+            <div id="products" class="page">
+                <div class="bg-white dark:bg-slate-800 rounded-[2rem] p-8 min-h-[80vh]">
+                    <div class="flex flex-wrap justify-between items-center gap-4 mb-8">
+                        <input type="text" id="searchProd" placeholder="بحث عن منتج..." class="bg-slate-50 dark:bg-slate-700 border p-4 rounded-2xl w-full md:w-96 outline-none" onkeyup="app.renderProducts()">
+                        <button onclick="app.openModal('prodModal')" class="bg-orange-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg btn-press">+ إضافة منتج</button>
+                    </div>
+                    <div id="productGrid" class="grid grid-cols-1 md:grid-cols-4 gap-6"></div>
+                </div>
+            </div>
+
+            <!-- Inventory -->
+            <div id="inventory" class="page">
+                <div class="bg-white dark:bg-slate-800 rounded-[2rem] p-8">
+                    <h3 class="font-bold text-2xl mb-6">حالة المخزون</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-right border-collapse">
+                            <thead class="bg-slate-50 dark:bg-slate-700 text-xs font-bold">
+                                <tr><th class="p-5">المنتج</th><th class="p-5">التصنيف</th><th class="p-5">تفاصيل الأحجام</th><th class="p-5">الكمية</th></tr>
+                            </thead>
+                            <tbody id="invTable" class="divide-y"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- POS -->
+            <div id="pos" class="page">
+                <div class="flex flex-col lg:flex-row gap-6 h-[calc(100vh-140px)]">
+                    <div class="flex-1 bg-white dark:bg-slate-800 rounded-[2rem] p-6 flex flex-col">
+                        <input type="text" id="posSearch" placeholder="بحث سريع..." class="bg-slate-50 dark:bg-slate-700 p-4 rounded-2xl mb-6 outline-none" onkeyup="app.renderPOS()">
+                        <div id="posGrid" class="grid grid-cols-2 md:grid-cols-4 gap-4 overflow-y-auto content-start"></div>
+                    </div>
+                    <div class="w-full lg:w-[400px] bg-white dark:bg-slate-800 rounded-[2rem] p-6 shadow-xl flex flex-col">
+                        <h3 class="font-bold text-xl mb-4 pb-4 border-b">السلة <span id="cartCountBadge" class="text-xs bg-orange-100 text-orange-600 px-2 rounded-full">0</span></h3>
+                        <div id="cartList" class="flex-1 overflow-y-auto mb-4 space-y-3"></div>
+                        <div class="bg-slate-50 dark:bg-slate-700 p-5 rounded-2xl">
+                            <div class="flex justify-between mb-6"><span class="font-bold">الإجمالي</span><span class="text-3xl font-black" id="cartTotal">0</span></div>
+                            <button onclick="app.checkout()" class="w-full bg-green-600 text-white font-bold py-4 rounded-xl shadow-lg btn-press mb-2">إتمام البيع</button>
+                            <button onclick="app.clearCart()" class="w-full text-red-500 font-bold py-2">إلغاء</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Users -->
+            <div id="users" class="page">
+                <div class="bg-white dark:bg-slate-800 rounded-[2rem] p-8">
+                    <div class="flex justify-between mb-8">
+                        <h3 class="font-bold text-2xl">الموظفين</h3>
+                        <button onclick="app.openModal('userModal')" class="bg-purple-600 text-white px-6 py-3 rounded-xl font-bold">+ موظف جديد</button>
+                    </div>
+                    <table class="w-full text-right"><thead class="bg-slate-50 dark:bg-slate-700 text-xs font-bold"><tr><th class="p-5">الاسم</th><th class="p-5">الصلاحيات</th><th class="p-5">تحكم</th></tr></thead><tbody id="userTable" class="divide-y"></tbody></table>
+                </div>
+            </div>
+
+            <!-- Returns -->
+            <div id="returns" class="page">
+                <div class="bg-white dark:bg-slate-800 rounded-[2rem] p-8">
+                    <h3 class="font-bold text-2xl mb-6">سجل المرتجعات</h3>
+                    <table class="w-full text-right"><thead class="bg-slate-50 dark:bg-slate-700 text-xs font-bold"><tr><th class="p-5">المنتج</th><th class="p-5">السبب</th><th class="p-5">التاريخ</th></tr></thead><tbody id="retTable" class="divide-y"></tbody></table>
+                </div>
+            </div>
+
+            <!-- Sales -->
+            <div id="sales" class="page">
+                <div class="bg-white dark:bg-slate-800 rounded-[2rem] p-8">
+                    <h3 class="font-bold text-2xl mb-6">سجل المبيعات</h3>
+                    <table class="w-full text-right"><thead class="bg-slate-50 dark:bg-slate-700 text-xs font-bold"><tr><th class="p-5">المعرف</th><th class="p-5">التاريخ</th><th class="p-5">القيمة</th><th class="p-5">البائع</th></tr></thead><tbody id="salesTable" class="divide-y"></tbody></table>
+                </div>
+            </div>
+
+            <!-- Settings -->
+            <div id="settings" class="page">
+                <div class="bg-white dark:bg-slate-800 rounded-[2rem] p-8 max-w-xl">
+                    <h3 class="font-bold text-xl mb-6">إعدادات النظام السحابي</h3>
+                    <div class="p-4 bg-orange-50 text-orange-700 rounded-xl mb-4 border border-orange-200">
+                        <p class="font-bold text-sm">تم تفعيل المزامنة التلقائية</p>
+                        <p class="text-xs">كل تغيير تقوم به يظهر فوراً لجميع الموظفين المتصلين.</p>
+                    </div>
+                    <button onclick="app.resetSystem()" class="w-full bg-red-50 text-red-600 border border-red-200 py-3 rounded-xl font-bold hover:bg-red-600 hover:text-white transition-all">حذف جميع البيانات</button>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <!-- Product Modal -->
+    <div id="prodModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 hidden flex items-center justify-center opacity-0 transition-opacity">
+        <div class="bg-white dark:bg-slate-800 p-8 rounded-[2rem] w-full max-w-4xl max-h-[90vh] overflow-y-auto shadow-2xl scale-95 transition-transform">
+            <div class="flex justify-between mb-6"><h3 class="font-bold text-2xl">إضافة منتج</h3><button onclick="app.closeModal('prodModal')" class="text-2xl">&times;</button></div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="space-y-4">
+                    <div onclick="document.getElementById('pImgInp').click()" class="border-2 border-dashed rounded-2xl h-64 flex flex-col items-center justify-center cursor-pointer relative overflow-hidden group">
+                        <img id="pImgPrev" class="absolute inset-0 w-full h-full object-cover hidden">
+                        <i class="ph ph-camera text-4xl text-slate-300"></i>
+                    </div>
+                    <input type="file" id="pImgInp" class="hidden" accept="image/*" onchange="app.prevImg(this)">
+                </div>
+                <div class="md:col-span-2 space-y-4">
+                    <input id="pName" placeholder="اسم المنتج" class="w-full border p-4 rounded-xl outline-none font-bold">
+                    <div class="flex gap-4">
+                        <input id="pPrice" type="number" placeholder="السعر" class="w-full border p-4 rounded-xl outline-none">
+                        <select id="pCat" class="w-full border p-4 rounded-xl outline-none" onchange="app.toggleSizes()">
+                            <option value="shoes">أحذية</option><option value="clothes">ملابس</option><option value="perfume">عطور</option><option value="acc">اكسسوارات</option>
+                        </select>
+                    </div>
+                    <input id="pBar" placeholder="الباركود" class="w-full border p-4 rounded-xl bg-slate-50 font-mono">
+                    <div id="sizeBox" class="bg-slate-50 dark:bg-slate-700 p-5 rounded-2xl border">
+                        <div id="s_shoes" class="grid grid-cols-5 gap-3"></div>
+                        <div id="s_clothes" class="grid grid-cols-5 gap-3 hidden"></div>
+                        <input id="pStock" type="number" placeholder="الكمية" class="w-full p-3 border rounded-xl hidden">
+                    </div>
+                    <button onclick="app.saveProd()" class="w-full bg-orange-600 text-white font-bold py-4 rounded-xl shadow-lg">حفظ المنتج للسحابة</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Size Choice Modal -->
+    <div id="sizeModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 hidden flex items-center justify-center opacity-0 transition-opacity">
+        <div class="bg-white dark:bg-slate-800 p-8 rounded-[2rem] w-80 text-center shadow-2xl scale-95">
+            <h3 class="font-bold text-xl mb-6">حدد المقاس</h3>
+            <div id="sizeOpts" class="flex flex-wrap gap-2 justify-center mb-6"></div>
+            <button onclick="app.closeModal('sizeModal')" class="text-red-500 font-bold">إغلاق</button>
+        </div>
+    </div>
+
+    <!-- Print Modal -->
+    <div id="printModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 hidden flex items-center justify-center opacity-0 transition-opacity">
+        <div class="bg-white dark:bg-slate-800 p-8 rounded-[2rem] w-80 text-center shadow-2xl scale-95">
+            <h3 class="font-bold text-xl mb-6">طباعة الباركود</h3>
+            <input type="hidden" id="prId">
+            <div class="flex justify-center items-center gap-6 mb-8">
+                <button onclick="app.adjPr(-1)" class="w-10 h-10 bg-slate-100 rounded-full font-bold">-</button>
+                <span id="prQty" class="text-3xl font-black">10</span>
+                <button onclick="app.adjPr(1)" class="w-10 h-10 bg-slate-100 rounded-full font-bold">+</button>
+            </div>
+            <button onclick="app.doPrint()" class="w-full bg-slate-800 text-white py-3.5 rounded-xl font-bold mb-2">طباعة</button>
+            <button onclick="app.closeModal('printModal')" class="text-slate-400">إلغاء</button>
+        </div>
+    </div>
+
+    <div id="printArea" class="hidden"></div>
+
+    <script>
+        // --- CLOUD CONFIGURATION ---
+        const CLOUD_CONFIG = {
+            BIN_ID: '694c04caae596e708fae909a', 
+            API_KEY: '$2a$10$/KzqC2yt05mVCNaLFJGa0uElaGxnIlv/yCw3rXsKPPN1XPJvZZzyK'
+        };
+
+        const app = {
+            data: { products: [], users: [], sales: [], returns: [], cart: [], config: { pass: '6677' }, current: null },
+            
+            async syncCloud() {
+                if(!CLOUD_CONFIG.BIN_ID || CLOUD_CONFIG.BIN_ID.includes('YOUR_')) {
+                    document.getElementById('loadingOverlay').style.display='none';
+                    return;
+                }
+                try {
+                    const response = await fetch(`https://api.jsonbin.io/v3/b/${CLOUD_CONFIG.BIN_ID}/latest`, {
+                        headers: { 'X-Master-Key': CLOUD_CONFIG.API_KEY }
+                    });
+                    const res = await response.json();
+                    if(res.record) {
+                        this.data = res.record;
+                        this.updateStats();
+                        this.notify("تمت المزامنة بنجاح");
+                    }
+                } catch(e) {
+                    this.notify("خطأ في الاتصال بالسحابة", "error");
+                } finally {
+                    document.getElementById('loadingOverlay').style.display='none';
+                }
+            },
+
+            async saveCloud() {
+                if(!CLOUD_CONFIG.BIN_ID || CLOUD_CONFIG.BIN_ID.includes('YOUR_')) return;
+                try {
+                    await fetch(`https://api.jsonbin.io/v3/b/${CLOUD_CONFIG.BIN_ID}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json', 'X-Master-Key': CLOUD_CONFIG.API_KEY },
+                        body: JSON.stringify(this.data)
+                    });
+                } catch(e) { this.notify("فشل الحفظ في السحابة", "error"); }
+            },
+
+            init() {
+                if(localStorage.theme === 'dark') document.documentElement.classList.add('dark');
+                
+                // Init Size UI
+                const sd = document.getElementById('s_shoes');
+                for(let i=36; i<=45; i++) sd.innerHTML += `<input type="number" id="sz_s_${i}" placeholder="${i}" class="border rounded-lg text-center p-2 text-sm outline-none dark:bg-slate-800">`;
+                const cd = document.getElementById('s_clothes');
+                ['S','M','L','XL','XXL'].forEach(s => cd.innerHTML += `<input type="number" id="sz_c_${s}" placeholder="${s}" class="border rounded-lg text-center p-2 text-sm outline-none dark:bg-slate-800">`);
+                
+                this.syncCloud();
+            },
+
+            // --- Original Features Restored ---
+            numInput(v) { document.getElementById('loginPass').value += v; },
+            numDelete() { const i = document.getElementById('loginPass'); i.value = i.value.slice(0, -1); },
+            numClear() { document.getElementById('loginPass').value = ''; },
+            login() { 
+                const p = document.getElementById('loginPass').value;
+                if(p === this.data.config.pass) { this.data.current = {name: 'المالك'}; this.grant(); }
+                else this.notify("كلمة المرور خاطئة", "error");
+            },
+            grant() {
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('mainApp').classList.remove('hidden');
+                document.getElementById('userDisplay').innerText = this.data.current.name;
+                this.nav('dashboard');
+            },
+            nav(id) {
+                document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('nav-active'));
+                document.getElementById(id).classList.add('active');
+                document.querySelector(`[data-target="${id}"]`).classList.add('nav-active');
+                if(id==='products') this.renderProducts();
+                if(id==='inventory') this.renderInv();
+                if(id==='pos') this.renderPOS();
+                if(id==='sales') this.renderSales();
+                if(id==='returns') this.renderRet();
+            },
+
+            saveProd() {
+                const cat = document.getElementById('pCat').value;
+                let sizes = {}, stock = 0;
+                if(cat === 'shoes') {
+                    for(let i=36; i<=45; i++) { const v = parseInt(document.getElementById(`sz_s_${i}`).value)||0; if(v>0) { sizes[i]=v; stock+=v; } }
+                } else if(cat === 'clothes') {
+                    ['S','M','L','XL','XXL'].forEach(s => { const v = parseInt(document.getElementById(`sz_c_${s}`).value)||0; if(v>0) { sizes[s]=v; stock+=v; } });
+                } else { stock = parseInt(document.getElementById('pStock').value)||0; }
+
+                const p = { id: Date.now().toString(), name: document.getElementById('pName').value, price: parseFloat(document.getElementById('pPrice').value), cat, bar: document.getElementById('pBar').value, img: document.getElementById('pImgPrev').src, sizes, stock };
+                this.data.products.push(p);
+                this.saveCloud();
+                this.closeModal('prodModal');
+                this.renderProducts();
+                this.updateStats();
+            },
+
+            renderProducts() {
+                const s = document.getElementById('searchProd').value.toLowerCase();
+                document.getElementById('productGrid').innerHTML = this.data.products.filter(p=>p.name.toLowerCase().includes(s)).map((p,i)=>`
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-sm border group">
+                        <div class="h-48 relative"><img src="${p.img}" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all">
+                            <button onclick="app.prepPrint('${p.id}')" class="bg-white px-4 py-2 rounded-lg font-bold">باركود</button>
+                        </div></div>
+                        <div class="p-5"><h4 class="font-bold truncate">${p.name}</h4><div class="flex justify-between mt-4"><span class="text-xs text-slate-400">Stock: ${p.stock}</span><span class="text-orange-600 font-black">${p.price}</span></div></div>
+                    </div>`).join('');
+            },
+
+            renderPOS() {
+                const s = document.getElementById('posSearch').value.toLowerCase();
+                document.getElementById('posGrid').innerHTML = this.data.products.filter(p=>p.stock>0 && p.name.toLowerCase().includes(s)).map(p=>`
+                    <div onclick="app.clickPos('${p.id}')" class="bg-white dark:bg-slate-800 p-3 rounded-2xl shadow-sm border cursor-pointer hover:border-orange-500">
+                        <img src="${p.img}" class="w-full h-24 object-cover rounded-xl mb-2">
+                        <h5 class="font-bold text-xs truncate">${p.name}</h5>
+                    </div>`).join('');
+            },
+
+            clickPos(id) {
+                const p = this.data.products.find(x=>x.id===id);
+                if(Object.keys(p.sizes).length > 0) {
+                    const d = document.getElementById('sizeOpts'); d.innerHTML='';
+                    Object.keys(p.sizes).forEach(s => d.innerHTML += `<button onclick="app.addCart('${id}','${s}');app.closeModal('sizeModal')" class="bg-orange-50 text-orange-600 px-4 py-2 rounded-xl font-bold border">${s}</button>`);
+                    this.openModal('sizeModal');
+                } else this.addCart(id, null);
+            },
+
+            addCart(id, sz) {
+                const p = this.data.products.find(x=>x.id===id);
+                const ex = this.data.cart.find(c=>c.id===id && c.size===sz);
+                if(ex) ex.qty++; else this.data.cart.push({id, name:p.name, price:p.price, size:sz, qty:1, img:p.img});
+                this.renderCart();
+            },
+
+            renderCart() {
+                let t=0; let c=0;
+                document.getElementById('cartList').innerHTML = this.data.cart.map((i,idx)=> {
+                    t += i.price * i.qty; c += i.qty;
+                    return `<div class="flex items-center gap-3 bg-slate-50 dark:bg-slate-700 p-3 rounded-xl border">
+                        <img src="${i.img}" class="w-10 h-10 rounded-lg">
+                        <div class="flex-1"><h6 class="font-bold text-xs">${i.name}</h6><span class="text-[10px] text-slate-400">${i.size||'STD'}</span></div>
+                        <span class="font-bold text-orange-600">x${i.qty}</span>
+                        <button onclick="app.data.cart.splice(${idx},1);app.renderCart()" class="text-red-400">&times;</button>
+                    </div>`;
+                }).join('');
+                document.getElementById('cartTotal').innerText = t;
+                document.getElementById('cartCountBadge').innerText = c;
+            },
+
+            async checkout() {
+                if(!this.data.cart.length) return;
+                this.data.cart.forEach(c => {
+                    const p = this.data.products.find(x=>x.id===c.id);
+                    if(c.size) p.sizes[c.size] -= c.qty;
+                    p.stock -= c.qty;
+                });
+                this.data.sales.push({id:Date.now(), date:new Date().toLocaleString('ar-IQ'), total:parseFloat(document.getElementById('cartTotal').innerText), seller:this.data.current.name});
+                this.data.cart = [];
+                await this.saveCloud();
+                this.renderCart(); this.renderPOS(); this.updateStats();
+                this.notify("تم البيع بنجاح");
+            },
+
+            renderInv() {
+                document.getElementById('invTable').innerHTML = this.data.products.map(p=>`
+                    <tr class="border-b"><td class="p-5 font-bold">${p.name}</td><td class="p-5">${p.cat}</td>
+                    <td class="p-5">${Object.entries(p.sizes).map(([k,v])=>`<span class="bg-slate-100 px-1 rounded mx-1">${k}:${v}</span>`).join('')}</td>
+                    <td class="p-5 font-black text-orange-600">${p.stock}</td></tr>`).join('');
+            },
+
+            renderSales() {
+                document.getElementById('salesTable').innerHTML = this.data.sales.slice().reverse().map(s=>`
+                    <tr class="border-b"><td class="p-4 text-xs font-mono">#${s.id}</td><td class="p-4">${s.date}</td><td class="p-4 font-bold text-green-600">${s.total}</td><td class="p-4">${s.seller}</td></tr>`).join('');
+            },
+
+            updateStats() {
+                document.getElementById('statProducts').innerText = this.data.products.length;
+                document.getElementById('statSales').innerText = this.data.sales.reduce((a,b)=>a+b.total,0);
+                document.getElementById('statUsers').innerText = this.data.users.length;
+                document.getElementById('statReturns').innerText = this.data.returns.length;
+            },
+
+            // --- UI Utils ---
+            toggleTheme() {
+                document.documentElement.classList.toggle('dark');
+                localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+            },
+            openModal(id) { 
+                const m = document.getElementById(id); m.classList.remove('hidden');
+                setTimeout(()=> { m.classList.remove('opacity-0'); m.children[0].classList.add('scale-100'); }, 10);
+            },
+            closeModal(id) {
+                const m = document.getElementById(id); m.classList.add('opacity-0'); m.children[0].classList.remove('scale-100');
+                setTimeout(()=> m.classList.add('hidden'), 300);
+            },
+            notify(m,t='success') {
+                const toast = document.getElementById('toast');
+                document.getElementById('toastMsg').innerText = m;
+                toast.classList.remove('translate-x-[-200%]');
+                setTimeout(()=>toast.classList.add('translate-x-[-200%]'), 3000);
+            },
+            prevImg(i) {
+                if(i.files[0]) {
+                    const r = new FileReader();
+                    r.onload = e => { document.getElementById('pImgPrev').src=e.target.result; document.getElementById('pImgPrev').classList.remove('hidden'); };
+                    r.readAsDataURL(i.files[0]);
+                }
+            },
+            toggleSizes() {
+                const c = document.getElementById('pCat').value;
+                document.getElementById('s_shoes').classList.toggle('hidden', c!=='shoes');
+                document.getElementById('s_clothes').classList.toggle('hidden', c!=='clothes');
+                document.getElementById('pStock').classList.toggle('hidden', !(c==='acc'||c==='perfume'));
+            },
+            resetSystem() { if(confirm('حذف كل البيانات؟')) { this.data={products:[],users:[],sales:[],returns:[],cart:[],config:{pass:'6677'}}; this.saveCloud(); location.reload(); } }
+        };
+
+        window.onload = () => app.init();
+    </script>
+</body>
+</html>
