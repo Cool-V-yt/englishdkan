@@ -155,47 +155,47 @@ canvas[aria-label*="chart"] {
     </div>
 
     <!-- Login Screen -->
-    <div id="loginScreen" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900 overflow-hidden">
-        <!-- Background Blobs -->
-        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-500/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
-        <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
+<!-- Login Screen -->
+<div id="loginScreen" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900 overflow-hidden">
+    <!-- Background Blobs -->
+    <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-500/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
+    <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
 
-        <div class="relative bg-white/10 backdrop-blur-xl border border-white/10 p-8 md:p-12 rounded-[2.5rem] shadow-2xl w-full max-w-md text-center float-anim mx-4">
-            <div class="w-20 h-20 bg-gradient-to-tr from-orange-400 to-orange-600 rounded-3xl mx-auto mb-6 flex items-center justify-center shadow-lg shadow-orange-500/30">
-                <i class="ph-fill ph-sneaker text-4xl text-white"></i>
+    <div class="relative bg-white/10 backdrop-blur-xl border border-white/10 p-8 md:p-12 rounded-[2.5rem] shadow-2xl w-full max-w-md text-center float-anim mx-4">
+        <div class="w-20 h-20 bg-gradient-to-tr from-orange-400 to-orange-600 rounded-3xl mx-auto mb-6 flex items-center justify-center shadow-lg shadow-orange-500/30">
+            <i class="ph-fill ph-sneaker text-4xl text-white"></i>
+        </div>
+        <h1 class="text-3xl font-black text-white mb-2 tracking-tight">EnglishDkan</h1>
+        <p class="text-slate-400 mb-8 font-light text-sm">بوابة النظام المتكامل</p>
+        
+        <div class="space-y-6">
+            <div class="relative">
+                <i class="ph ph-lock-key absolute top-1/2 right-4 -translate-y-1/2 text-slate-400 text-xl"></i>
+                <input type="password" id="loginPass" readonly placeholder="••••" class="w-full bg-slate-800/50 border border-slate-700 text-white rounded-2xl px-12 py-4 focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all text-center tracking-widest placeholder:tracking-normal text-xl cursor-default">
             </div>
-            <h1 class="text-3xl font-black text-white mb-2 tracking-tight">EnglishDkan</h1>
-            <p class="text-slate-400 mb-8 font-light text-sm">بوابة النظام المتكامل</p>
-            
-            <div class="space-y-6">
-                <div class="relative">
-                    <i class="ph ph-lock-key absolute top-1/2 right-4 -translate-y-1/2 text-slate-400 text-xl"></i>
-                    <input type="password" id="loginPass" readonly placeholder="••••" class="w-full bg-slate-800/50 border border-slate-700 text-white rounded-2xl px-12 py-4 focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all text-center tracking-widest placeholder:tracking-normal text-xl cursor-default">
-                </div>
 
-                <!-- Number Pad -->
-                <div class="grid grid-cols-3 gap-3">
-                    <button onclick="app.numInput('1')" class="bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">1</button>
-                    <button onclick="app.numInput('2')" class="bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">2</button>
-                    <button onclick="app.numInput('3')" class="bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">3</button>
-                    <button onclick="app.numInput('4')" class="bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">4</button>
-                    <button onclick="app.numInput('5')" class="bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">5</button>
-                    <button onclick="app.numInput('6')" class="bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">6</button>
-                    <button onclick="app.numInput('7')" class="bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">7</button>
-                    <button onclick="app.numInput('8')" class="bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">8</button>
-                    <button onclick="app.numInput('9')" class="bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">9</button>
-                    <button onclick="app.numClear()" class="bg-red-500/20 hover:bg-red-500/30 text-red-400 font-bold py-4 rounded-2xl border border-red-500/20 transition-all active:scale-90"><i class="ph-bold ph-trash"></i></button>
-                    <button onclick="app.numInput('0')" class="bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">0</button>
-                    <button onclick="app.numDelete()" class="bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90"><i class="ph-bold ph-backspace"></i></button>
-                </div>
-
-                <button onclick="app.login()" class="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 text-white font-bold py-4 rounded-2xl shadow-lg shadow-orange-500/20 transition-all btn-press flex items-center justify-center gap-2">
-                    <span>دخول</span> <i class="ph-bold ph-arrow-left"></i>
-                </button>
+            <!-- Number Pad with data attributes -->
+            <div class="grid grid-cols-3 gap-3">
+                <button data-num="1" class="num-btn bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">1</button>
+                <button data-num="2" class="num-btn bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">2</button>
+                <button data-num="3" class="num-btn bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">3</button>
+                <button data-num="4" class="num-btn bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">4</button>
+                <button data-num="5" class="num-btn bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">5</button>
+                <button data-num="6" class="num-btn bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">6</button>
+                <button data-num="7" class="num-btn bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">7</button>
+                <button data-num="8" class="num-btn bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">8</button>
+                <button data-num="9" class="num-btn bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">9</button>
+                <button data-num="clear" class="num-btn bg-red-500/20 hover:bg-red-500/30 text-red-400 font-bold py-4 rounded-2xl border border-red-500/20 transition-all active:scale-90"><i class="ph-bold ph-trash"></i></button>
+                <button data-num="0" class="num-btn bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">0</button>
+                <button data-num="delete" class="num-btn bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90"><i class="ph-bold ph-backspace"></i></button>
             </div>
+
+            <button id="loginBtn" class="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 text-white font-bold py-4 rounded-2xl shadow-lg shadow-orange-500/20 transition-all btn-press flex items-center justify-center gap-2">
+                <span>دخول</span> <i class="ph-bold ph-arrow-left"></i>
+            </button>
         </div>
     </div>
-
+</div>
     <!-- App Layout -->
     <div id="mainApp" class="flex h-screen hidden overflow-hidden">
         
@@ -256,11 +256,9 @@ canvas[aria-label*="chart"] {
                     <p class="text-slate-500 dark:text-slate-400 font-medium text-sm">نظام إدارة المخزون والمبيعات</p>
                 </div>
                 <div class="flex items-center gap-4">
-                    <!-- Dark Mode Toggle -->
-                    <button onclick="app.toggleTheme()" id="themeBtn" class="w-12 h-12 rounded-full bg-white dark:bg-slate-800 shadow-sm border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-yellow-400 hover:scale-105 transition-transform">
-                        <i id="themeIcon" class="ph-fill ph-moon-stars text-xl"></i>
-                    </button>
-
+              <button id="themeBtn" class="w-12 h-12 rounded-full bg-white dark:bg-slate-800 shadow-sm border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-yellow-400 hover:scale-105 transition-transform">
+    <i id="themeIcon" class="ph-fill ph-moon-stars text-xl"></i>
+</button>
                     <div class="bg-white dark:bg-slate-800 pl-6 pr-2 py-2 rounded-full shadow-sm border border-slate-200 dark:border-slate-700 flex items-center gap-3">
                         <div class="flex flex-col items-end mr-3">
                             <span class="text-[10px] text-slate-400 font-bold uppercase">الحساب</span>
@@ -1210,7 +1208,79 @@ app.renderAnalyticsCharts = function() {
     const app = {
         data: { products: [], users: [], sales: [], returns: [], cart: [], returnCart: [], config: { pass: '6677' }, current: null },
         charts: {}, // Store chart instances
+        // Add this at the VERY BEGINNING of your <script> section
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, setting up login event listeners...');
+    
+    // Function to handle number pad clicks
+    function handleNumPadClick(num) {
+        const input = document.getElementById('loginPass');
+        if (!input) return;
         
+        if (num === 'clear') {
+            input.value = '';
+        } else if (num === 'delete') {
+            input.value = input.value.slice(0, -1);
+        } else {
+            input.value += num;
+        }
+    }
+    
+    // Add click events to all number buttons
+    document.querySelectorAll('.num-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const num = this.getAttribute('data-num');
+            handleNumPadClick(num);
+        });
+    });
+    
+    // Add click event to login button
+    const loginBtn = document.getElementById('loginBtn');
+    if (loginBtn) {
+        loginBtn.addEventListener('click', function() {
+            // Try to use app.login if it exists
+            if (window.app && window.app.login) {
+                window.app.login();
+            } else {
+                // Fallback: just show password in console for debugging
+                const password = document.getElementById('loginPass').value;
+                console.log('Login attempted with password:', password);
+                alert('System is loading... Please wait a moment and try again.');
+            }
+        });
+    }
+    
+    // Remove readonly attribute from password input
+    const passInput = document.getElementById('loginPass');
+    if (passInput) {
+        passInput.removeAttribute('readonly');
+        passInput.classList.remove('cursor-default');
+    }
+});
+
+// Define app as a global variable immediately
+window.app = window.app || {};
+
+// Add placeholder functions to prevent errors
+window.app.numInput = window.app.numInput || function(val) {
+    const input = document.getElementById('loginPass');
+    if (input) input.value += val;
+};
+
+window.app.numDelete = window.app.numDelete || function() {
+    const input = document.getElementById('loginPass');
+    if (input) input.value = input.value.slice(0, -1);
+};
+
+window.app.numClear = window.app.numClear || function() {
+    const input = document.getElementById('loginPass');
+    if (input) input.value = '';
+};
+
+window.app.login = window.app.login || function() {
+    console.log('App login function called but app not fully loaded yet');
+    alert('System is still loading. Please wait...');
+};
         init: function() {
             // Set theme
             if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -3333,10 +3403,39 @@ addRetItem: function(id, sz) {
     }
     this.renderRetCart();
 },
-    // Initialize the app when DOM is loaded
-    window.addEventListener('DOMContentLoaded', () => {
-        app.init();
-    });
+// ========== EVENT LISTENERS ==========
+document.addEventListener('DOMContentLoaded', function() {
+    // Theme toggle button
+    const themeBtn = document.getElementById('themeBtn');
+    if (themeBtn) {
+        themeBtn.addEventListener('click', function() {
+            if (window.app && window.app.toggleTheme) {
+                window.app.toggleTheme();
+            } else {
+                const icon = document.getElementById('themeIcon');
+                if (icon) {
+                    icon.parentElement.classList.add('spin-once');
+                    setTimeout(() => icon.parentElement.classList.remove('spin-once'), 500);
+                }
+                
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.theme = 'light';
+                    if (icon) icon.className = 'ph-fill ph-moon-stars text-xl';
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.theme = 'dark';
+                    if (icon) icon.className = 'ph-fill ph-sun text-xl text-yellow-500';
+                }
+            }
+        });
+    }
+});
+
+// Make sure app is initialized
+window.addEventListener('DOMContentLoaded', () => {
+    app.init();
+});
 </script>
 </body>
 </html>
