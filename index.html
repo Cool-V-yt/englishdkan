@@ -1516,36 +1516,69 @@ nav: function(page) {
     
     // Destroy all charts when navigating away from chart pages
     if (page !== 'dashboard' && page !== 'analytics') {
-        this.destroyAnalyticsCharts();
+        // Check if function exists before calling it
+        if (typeof this.destroyAnalyticsCharts === 'function') {
+            this.destroyAnalyticsCharts();
+        }
     }
     
-    // Store a reference to 'this' to avoid scope issues
-    const self = this;
-    
-    // Load specific page data
-    switch(page) {
-        case 'dashboard':
-            this.updateStats();
-            setTimeout(() => this.initMainChart(), 100);
-            break;
-        case 'products':
-            setTimeout(() => this.renderProducts(), 100);
-            break;
-        case 'inventory':
-            setTimeout(() => this.renderInv(), 100);
-            break;
-        case 'pos':
-            setTimeout(() => this.renderPOS(), 100);
-            break;
-        case 'analytics':
-            setTimeout(() => self.renderAnalytics(), 200);  // Use 'self' instead of 'this'
-            break;
-        case 'users':
-            setTimeout(() => this.renderUsers(), 100);
-            break;
-        case 'returns':
-            setTimeout(() => this.renderReturnsPage(), 100);
-            break;
+    // Load specific page data with error handling
+    try {
+        switch(page) {
+            case 'dashboard':
+                this.updateStats();
+                setTimeout(() => {
+                    if (typeof this.initMainChart === 'function') {
+                        this.initMainChart();
+                    }
+                }, 100);
+                break;
+            case 'products':
+                setTimeout(() => {
+                    if (typeof this.renderProducts === 'function') {
+                        this.renderProducts();
+                    }
+                }, 100);
+                break;
+            case 'inventory':
+                setTimeout(() => {
+                    if (typeof this.renderInv === 'function') {
+                        this.renderInv();
+                    }
+                }, 100);
+                break;
+            case 'pos':
+                setTimeout(() => {
+                    if (typeof this.renderPOS === 'function') {
+                        this.renderPOS();
+                    }
+                }, 100);
+                break;
+            case 'analytics':
+                setTimeout(() => {
+                    if (typeof this.renderAnalytics === 'function') {
+                        this.renderAnalytics();
+                    }
+                }, 200);
+                break;
+            case 'users':
+                setTimeout(() => {
+                    if (typeof this.renderUsers === 'function') {
+                        this.renderUsers();
+                    }
+                }, 100);
+                break;
+            case 'returns':
+                setTimeout(() => {
+                    if (typeof this.renderReturnsPage === 'function') {
+                        this.renderReturnsPage();
+                    }
+                }, 100);
+                break;
+        }
+    } catch (error) {
+        console.error(`Error loading page ${page}:`, error);
+        this.notify(`خطأ في تحميل الصفحة: ${page}`, 'error');
     }
 },
         generateBar: function() {
@@ -2622,6 +2655,117 @@ renderAnalyticsCharts: function() {
         });
     }
 },
+        destroyAnalyticsCharts: function() {
+    // Destroy all charts in the registry
+    Object.keys(this.charts).forEach(chartId => {
+        if (this.charts[chartId]) {
+            console.log(`Destroying chart: ${chartId}`);
+            this.charts[chartId].destroy();
+            delete this.charts[chartId];
+        }
+    });
+    console.log('All charts destroyed');
+},
+        renderTopProfitableProducts: function() {
+    const container = document.getElementById('topProfitableProducts');
+    if (!container) return;
+    
+    // Calculate profitability for each product
+    const productProfits = {};
+    
+    this.data.sales.forEach(sale => {
+        sale.items.forEach(item => {
+            const product = this.data.products.find(p => p.id === item.id);
+            if (product && product.buyPrice) {
+                if (!productProfits[product.id]) {
+                    productProfits[product.id] = {
+                        name: product.name,
+                        img: product.img,
+                        totalProfit: 0,
+                        totalRevenue: 0,
+                        totalSold: 0
+                    };
+                }
+                const profit = (item.price - product.buyPrice) * item.qty;
+                productProfits[product.id].totalProfit += profit;
+                productProfits[product.id].totalRevenue += item.price * item.qty;
+                productProfits[product.id].totalSold += item.qty;
+            }
+        });
+    });
+    
+    // Sort by profit (highest first) and take top 5
+    const topProducts = Object.values(productProfits)
+        .sort((a, b) => b.totalProfit - a.totalProfit)
+        .slice(0, 5);
+    
+    if (topProducts.length === 0) {
+        container.innerHTML = '<div class="text-center py-8 text-slate-400"><i class="ph ph-chart-line text-2xl mb-2"></i><p>لا توجد بيانات للأرباح</p></div>';
+        return;
+    }
+    
+    container.innerHTML = topProducts.map((product, index) => `
+        <div class="flex items-center gap-4 p-4 bg-slate-50 dark:bg-slate-700 rounded-2xl border border-slate-100 dark:border-slate-600 hover:border-orange-500 transition-all">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center text-white font-black text-xl shadow-lg ${index === 0 ? 'bg-yellow-500' : index === 1 ? 'bg-slate-400' : index === 2 ? 'bg-orange-500' : 'bg-blue-500'}">
+                ${index + 1}
+            </div>
+            <img src="${product.img}" class="w-12 h-12 rounded-xl object-cover bg-white" onerror="this.style.display='none'">
+            <div class="flex-1">
+                <h4 class="font-bold text-slate-800 dark:text-white text-sm">${product.name}</h4>
+                <p class="text-xs text-slate-500 dark:text-slate-400">مبيعات: ${product.totalSold} قطعة</p>
+            </div>
+            <div class="text-right">
+                <div class="font-black text-green-600 dark:text-green-400 text-lg">${product.totalProfit.toLocaleString()}</div>
+                <div class="text-xs text-slate-400">ربح</div>
+            </div>
+        </div>
+    `).join('');
+},
+
+renderRecentSalesWithProfit: function() {
+    const container = document.getElementById('recentSalesWithProfit');
+    if (!container) return;
+    
+    // Get recent sales (last 8)
+    const recentSales = this.data.sales.slice().reverse().slice(0, 8);
+    
+    if (recentSales.length === 0) {
+        container.innerHTML = '<div class="text-center py-8 text-slate-400"><i class="ph ph-clock-clockwise text-2xl mb-2"></i><p>لا توجد عمليات بيع حديثة</p></div>';
+        return;
+    }
+    
+    container.innerHTML = recentSales.map(sale => {
+        // Calculate profit for this sale
+        let saleProfit = 0;
+        sale.items.forEach(item => {
+            const product = this.data.products.find(p => p.id === item.id);
+            if (product && product.buyPrice) {
+                saleProfit += (item.price - product.buyPrice) * item.qty;
+            }
+        });
+        
+        const profitColor = saleProfit > 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400';
+        
+        return `
+        <div class="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-700 rounded-xl border border-slate-100 dark:border-slate-600">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 ${saleProfit > 0 ? 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400' : 'bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400'} rounded-xl flex items-center justify-center">
+                    <i class="ph-bold ${saleProfit > 0 ? 'ph-arrow-up' : 'ph-arrow-down'} text-xl"></i>
+                </div>
+                <div>
+                    <p class="font-bold text-sm text-slate-800 dark:text-white">${sale.items.length} منتج</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">${sale.date} • ${sale.seller}</p>
+                </div>
+            </div>
+            <div class="text-right">
+                <div class="font-black ${profitColor}">${sale.total.toLocaleString()}</div>
+                <div class="text-xs text-slate-400">${saleProfit > 0 ? '+' : ''}${saleProfit.toLocaleString()} ربح</div>
+            </div>
+        </div>
+        `;
+    }).join('');
+},
+        
         openModal: function(id) {
             const m = document.getElementById(id);
             if (!m) return;
