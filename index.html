@@ -1247,7 +1247,7 @@ saveToBackend: async function() {
         console.log('📤 Attempting to save to server...');
         console.log('Data being sent:', this.data);
         
-        const response = await fetch('http://qf4baseovn.eu.loclx.io/api/save', {
+        const response = await fetch('https://englishdkan.onrender.com/api/save', {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',
@@ -1285,7 +1285,7 @@ loadFromBackend: async function() {
     try {
         console.log('📥 Loading from server...');
         
-        const response = await fetch('http://qf4baseovn.eu.loclx.io/api/load');
+        const response = await fetch('https://englishdkan.onrender.com/api/load');
         
         if (response.ok) {
             const data = await response.json();
