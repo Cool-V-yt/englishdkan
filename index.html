@@ -390,7 +390,21 @@ canvas[aria-label*="chart"] {
                     <p class="text-sm opacity-90 font-bold">إجمالي الإيرادات</p>
                 </div>
             </div>
+<!-- Add these lines INSIDE the analytics page, around line 525: -->
 
+<!-- Best Selling Products -->
+<div id="topProductsList" class="space-y-3 max-h-80 overflow-y-auto pr-2"></div>
+
+<!-- Recent Sales -->
+<div id="recentSalesList" class="space-y-3 max-h-80 overflow-y-auto pr-2"></div>
+
+<!-- Employee Performance -->
+<div id="employeePerformance" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+
+<!-- Charts that don't exist -->
+<div id="salesTrendChart" style="height: 250px;"></div>
+<div id="categoryChart" style="height: 250px;"></div>
+<div id="hourlyChart" style="height: 250px;"></div>
             <!-- Total Profit -->
             <div class="bg-gradient-to-br from-purple-500 to-purple-600 p-6 rounded-3xl shadow-xl text-white relative overflow-hidden group hover:scale-105 transition-transform">
                 <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
@@ -1248,30 +1262,6 @@ document.addEventListener('DOMContentLoaded', function() {
         data: { products: [], users: [], sales: [], returns: [], cart: [], returnCart: [], config: { pass: '6677' }, current: null },
         charts: {}, // Store chart instances
         // Add this at the VERY BEGINNING of your <script> section
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded, setting up login event listeners...');
-    
-    // Function to handle number pad clicks
-    function handleNumPadClick(num) {
-        const input = document.getElementById('loginPass');
-        if (!input) return;
-        
-        if (num === 'clear') {
-            input.value = '';
-        } else if (num === 'delete') {
-            input.value = input.value.slice(0, -1);
-        } else {
-            input.value += num;
-        }
-    }
-    
-    // Add click events to all number buttons
-    document.querySelectorAll('.num-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            const num = this.getAttribute('data-num');
-            handleNumPadClick(num);
-        });
-    });
     
     // Add click event to login button
     const loginBtn = document.getElementById('loginBtn');
