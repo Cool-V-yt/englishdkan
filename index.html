@@ -1332,7 +1332,16 @@ loadFromBackend: async function() {
         return false;
     }
 },
-
+// Add this function to your app object
+getCategoryName: function(catCode) {
+    const categories = {
+        'shoes': 'أحذية',
+        'clothes': 'ملابس',
+        'perfume': 'عطور',
+        'acc': 'اكسسوارات'
+    };
+    return categories[catCode] || catCode;
+},
 // Update your save function
 save: function() {
     this.updateStats();
@@ -1510,6 +1519,9 @@ nav: function(page) {
         this.destroyAnalyticsCharts();
     }
     
+    // Store a reference to 'this' to avoid scope issues
+    const self = this;
+    
     // Load specific page data
     switch(page) {
         case 'dashboard':
@@ -1526,7 +1538,7 @@ nav: function(page) {
             setTimeout(() => this.renderPOS(), 100);
             break;
         case 'analytics':
-            setTimeout(() => this.renderAnalytics(), 200);
+            setTimeout(() => self.renderAnalytics(), 200);  // Use 'self' instead of 'this'
             break;
         case 'users':
             setTimeout(() => this.renderUsers(), 100);
@@ -1535,15 +1547,6 @@ nav: function(page) {
             setTimeout(() => this.renderReturnsPage(), 100);
             break;
     }
-},
-destroyAnalyticsCharts: function() {
-    // Destroy all charts in the registry
-    Object.keys(this.charts).forEach(chartId => {
-        if (this.charts[chartId]) {
-            this.charts[chartId].destroy();
-        }
-    });
-    this.charts = {}; // Clear the registry
 },
         generateBar: function() {
             const len = Math.floor(Math.random() * 2) + 11;
@@ -2375,7 +2378,10 @@ renderAnalytics: function() {
     });
     
     const bestCategory = Object.entries(categoryProfits).reduce((a, b) => b[1] > a[1] ? b : a, ['-', 0]);
-    document.getElementById('analyticsBestCategory').innerText = this.getCategoryName(bestCategory[0]);
+    
+    // Use getCategoryName function
+    const categoryName = this.getCategoryName(bestCategory[0]);
+    document.getElementById('analyticsBestCategory').innerText = categoryName;
     document.getElementById('analyticsBestCategoryProfit').innerText = `ربح: ${bestCategory[1].toLocaleString()}`;
     
     // Count low profit products
