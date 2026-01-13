@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // ⚠️ REPLACE THIS with your actual MongoDB connection string
 const MONGODB_URI = 'mongodb+srv://vw_w:Minecraftos@englishdkan.m0y0y3h.mongodb.net/?appName=englishdkan'; // or your Atlas URI
@@ -123,4 +123,5 @@ app.listen(PORT, () => {
 ----------------------------------------------
 Keep this window OPEN for your dad to access.
     `);
+
 });
