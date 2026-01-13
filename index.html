@@ -1218,42 +1218,7 @@ app.renderAnalyticsCharts = function() {
     // Define app immediately to prevent "app is not defined" errors
 window.app = window.app || {};
 
-// Then add your DOMContentLoaded listener
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded');
-    
-    // Theme button event listener
-    const themeBtn = document.getElementById('themeBtn');
-    if (themeBtn) {
-        themeBtn.addEventListener('click', function() {
-            if (window.app && window.app.toggleTheme) {
-                window.app.toggleTheme();
-            } else {
-                // Fallback
-                const icon = document.getElementById('themeIcon');
-                if (icon) {
-                    icon.parentElement.classList.add('spin-once');
-                    setTimeout(() => icon.parentElement.classList.remove('spin-once'), 500);
-                }
-                
-                if (document.documentElement.classList.contains('dark')) {
-                    document.documentElement.classList.remove('dark');
-                    localStorage.theme = 'light';
-                    if (icon) icon.className = 'ph-fill ph-moon-stars text-xl';
-                } else {
-                    document.documentElement.classList.add('dark');
-                    localStorage.theme = 'dark';
-                    if (icon) icon.className = 'ph-fill ph-sun text-xl text-yellow-500';
-                }
-            }
-        });
-    }
-    
-    // Initialize app if it exists
-    if (window.app && window.app.init) {
-        window.app.init();
-    }
-});
+
     const DB_KEY = 'EnglishDkan_Restored_V2'; 
     const API_BASE = 'https://englishdkan.onrender.com/api';
     const APP_ID = 'englishdkan';
