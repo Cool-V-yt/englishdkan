@@ -6,7 +6,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // ⚠️ REPLACE THIS with your actual MongoDB connection string
-const MONGODB_URI = 'mongodb+srv://vw_w:Minecraftos@englishdkan.m0y0y3h.mongodb.net/?appName=englishdkan'; // or your Atlas URI
+const MONGODB_URI = process.env.MONGODB_URI;
 
 // --- MIDDLEWARE ---
 app.use(cors());
@@ -125,3 +125,4 @@ Keep this window OPEN for your dad to access.
     `);
 
 });
+
