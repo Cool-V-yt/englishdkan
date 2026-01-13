@@ -1185,32 +1185,32 @@ app.renderAnalyticsCharts = function() {
             setTimeout(() => this.initMainChart(), 500);
         },
         
-        initSizeInputs: function() {
-            const sd = document.getElementById('s_shoes');
-            if (sd) {
-                sd.innerHTML = '';
-                for(let i=36; i<=45; i++) {
-                    sd.innerHTML += `<input type="number" id="sz_s_${i}" placeholder="${i}" class="border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 dark:text-white rounded-lg text-center p-2 text-sm focus:ring-2 focus:ring-orange-500 outline-none transition-shadow">`;
-                }
-            }
-            
-            const cd = document.getElementById('s_clothes');
-            if (cd) {
-                cd.innerHTML = '';
-                ['S','M','L','XL','XXL'].forEach(s => {
-                    cd.innerHTML += `<input type="number" id="sz_c_${s}" placeholder="${s}" class="border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 dark:text-white rounded-lg text-center p-2 text-sm focus:ring-2 focus:ring-orange-500 outline-none transition-shadow">`;
-                });
-            }
-            
-            const pd = document.getElementById('s_perfume');
-            if (pd) {
-                pd.innerHTML = '';
-                ['3ml','50ml','100ml'].forEach(s => {
-                    pd.innerHTML += `<input type="number" id="sz_p_${s}" placeholder="${s}" class="border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 dark:text-white rounded-lg text-center p-2 text-sm focus:ring-2 focus:ring-orange-500 outline-none transition-shadow">`;
-                });
-            }
-        },
-        
+initSizeInputs: function() {
+    const sd = document.getElementById('s_shoes');
+    if (sd) {
+        sd.innerHTML = '';
+        // Remove 36-37, add 46-47 (new range: 38-47)
+        for(let i=38; i<=47; i++) {
+            sd.innerHTML += `<input type="number" id="sz_s_${i}" placeholder="${i}" class="border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 dark:text-white rounded-lg text-center p-2 text-sm focus:ring-2 focus:ring-orange-500 outline-none transition-shadow">`;
+        }
+    }
+    
+    const cd = document.getElementById('s_clothes');
+    if (cd) {
+        cd.innerHTML = '';
+        ['S','M','L','XL','XXL'].forEach(s => {
+            cd.innerHTML += `<input type="number" id="sz_c_${s}" placeholder="${s}" class="border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 dark:text-white rounded-lg text-center p-2 text-sm focus:ring-2 focus:ring-orange-500 outline-none transition-shadow">`;
+        });
+    }
+    
+    const pd = document.getElementById('s_perfume');
+    if (pd) {
+        pd.innerHTML = '';
+        ['3ml','50ml','100ml'].forEach(s => {
+            pd.innerHTML += `<input type="number" id="sz_p_${s}" placeholder="${s}" class="border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 dark:text-white rounded-lg text-center p-2 text-sm focus:ring-2 focus:ring-orange-500 outline-none transition-shadow">`;
+        });
+    }
+},
 initMainChart: function() {
     const ctx = document.getElementById('mainChart');
     if (!ctx) return;
@@ -1656,119 +1656,149 @@ nav: function(page) {
         },
         
         renderProducts: function() {
-            const g = document.getElementById('productGrid');
-            if (!g) return;
-            
-            const s = document.getElementById('searchProd').value.toLowerCase();
-            const filtered = this.filterCat ? this.data.products.filter(p=>p.cat===this.filterCat) : this.data.products;
-            
-            const productsToShow = filtered.filter(p => p.name.toLowerCase().includes(s));
-            
-            g.innerHTML = productsToShow.map((p, i) => {
-                const margin = p.buyPrice ? (((p.sellPrice - p.buyPrice) / p.buyPrice) * 100).toFixed(1) : 0;
-                let marginBadge = '';
-                
-                if (p.buyPrice && p.buyPrice > 0) {
-                    const marginClass = margin > 20 ? 'bg-green-100 text-green-800 border-green-200' :
-                                       margin > 10 ? 'bg-orange-100 text-orange-800 border-orange-200' :
-                                       'bg-red-100 text-red-800 border-red-200';
-                    marginBadge = `<span class="text-[10px] font-bold px-2 py-1 rounded-md border ${marginClass}">${margin}%</span>`;
+    const g = document.getElementById('productGrid');
+    if (!g) return;
+    
+    const s = document.getElementById('searchProd').value.toLowerCase();
+    const filtered = this.filterCat ? this.data.products.filter(p=>p.cat===this.filterCat) : this.data.products;
+    
+    const productsToShow = filtered.filter(p => p.name.toLowerCase().includes(s));
+    
+    g.innerHTML = productsToShow.map((p, i) => {
+        const margin = p.buyPrice ? (((p.sellPrice - p.buyPrice) / p.buyPrice) * 100).toFixed(1) : 0;
+        let marginBadge = '';
+        
+        if (p.buyPrice && p.buyPrice > 0) {
+            const marginClass = margin > 20 ? 'bg-green-100 text-green-800 border-green-200' :
+                               margin > 10 ? 'bg-orange-100 text-orange-800 border-orange-200' :
+                               'bg-red-100 text-red-800 border-red-200';
+            marginBadge = `<span class="text-[10px] font-bold px-2 py-1 rounded-md border ${marginClass}">${margin}%</span>`;
+        }
+        
+        const placeholderImage = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiNGNUY2RjciLz48cGF0aCBkPSJNNzAgODBMOTAgNjBMMTIwIDkwTDE1MCA2MEwxNzAgODBMMTQwIDEyMEwxNzAgMTYwTDE1MCAxODBMMTIwIDE1MEw5MCAxODBMNzAgMTYwTDEwMCAxMjBMNzAgODBaIiBmaWxsPSIjRkRCQjQwIi8+PC9zdmc+';
+        
+        // Check if product has sizes
+        const hasSizes = p.cat === 'shoes' || p.cat === 'clothes' || p.cat === 'perfume';
+        
+        // Generate size buttons for barcode printing
+        let sizeButtons = '';
+        if (hasSizes && Object.keys(p.sizes).length > 0) {
+            sizeButtons = Object.keys(p.sizes).map(size => {
+                if (p.sizes[size] > 0) {
+                    return `<button onclick="app.prepSizePrint('${p.id}', '${size}')" class="text-[10px] bg-blue-100 hover:bg-blue-200 dark:bg-blue-900/30 dark:hover:bg-blue-900/50 text-blue-700 dark:text-blue-300 px-2 py-1 rounded border border-blue-200 dark:border-blue-700">
+                        ${size}: ${p.sizes[size]}
+                    </button>`;
                 }
-                
-                const placeholderImage = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiNGNUY2RjciLz48cGF0aCBkPSJNNzAgODBMOTAgNjBMMTIwIDkwTDE1MCA2MEwxNzAgODBMMTQwIDEyMEwxNzAgMTYwTDE1MCAxODBMMTIwIDE1MEw5MCAxODBMNzAgMTYwTDEwMCAxMjBMNzAgODBaIiBmaWxsPSIjRkRCQjQwIi8+PC9zdmc+';
-                
-                return `
-                <div class="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 dark:border-slate-700 group stagger-anim" style="animation-delay: ${i*0.05}s">
-                    <div class="h-48 bg-slate-50 dark:bg-slate-700 relative overflow-hidden">
-                        <img src="${p.img}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.onerror=null; this.src='${placeholderImage}'">
-                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all flex flex-col items-center justify-center gap-2 backdrop-blur-sm">
-                            <button onclick="app.prepPrint('${p.id}')" class="w-40 bg-white text-slate-800 px-4 py-2 rounded-lg font-bold text-xs shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform flex items-center justify-center gap-2">
-                                <i class="ph-bold ph-barcode"></i> طباعة باركود
-                            </button>
-                            <div class="flex gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform delay-75">
-                                <button onclick="app.editProd('${p.id}')" class="bg-blue-600 text-white p-2.5 rounded-lg font-bold shadow-lg hover:bg-blue-700">
-                                    <i class="ph-bold ph-pencil-simple"></i>
-                                </button>
-                                <button onclick="app.deleteProd('${p.id}')" class="bg-red-600 text-white p-2.5 rounded-lg font-bold shadow-lg hover:bg-red-700">
-                                    <i class="ph-bold ph-trash"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <span class="absolute top-3 left-3 bg-white/90 backdrop-blur px-2 py-1 rounded-lg text-[10px] font-bold uppercase tracking-widest text-slate-600 shadow-sm">${p.cat}</span>
-                    </div>
-                    <div class="p-5">
-                        <h4 class="font-bold text-lg text-slate-800 dark:text-white mb-1 truncate">${p.name}</h4>
-                        <div class="flex justify-between items-center mt-2 mb-4">
-                            ${marginBadge}
-                            <span class="text-xs text-slate-400 font-bold bg-slate-100 dark:bg-slate-700 px-2 py-1 rounded-md">Stock: ${p.stock}</span>
-                        </div>
-                        <div class="flex justify-between items-end">
-                            <div>
-                                <div class="text-xs text-red-500 font-bold">شراء: ${p.buyPrice ? p.buyPrice.toLocaleString() : '-'}</div>
-                                <div class="text-orange-600 dark:text-orange-400 font-black text-xl">بيع: ${p.sellPrice.toLocaleString()}</div>
-                            </div>
-                            <div class="text-xs text-green-600 font-bold">ربح: ${p.profit ? p.profit.toLocaleString() : '-'}</div>
-                        </div>
+                return '';
+            }).join('');
+        }
+        
+        return `
+        <div class="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 dark:border-slate-700 group stagger-anim" style="animation-delay: ${i*0.05}s">
+            <div class="h-48 bg-slate-50 dark:bg-slate-700 relative overflow-hidden">
+                <img src="${p.img}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.onerror=null; this.src='${placeholderImage}'">
+                <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all flex flex-col items-center justify-center gap-2 backdrop-blur-sm">
+                    <button onclick="app.prepPrint('${p.id}')" class="w-40 bg-white text-slate-800 px-4 py-2 rounded-lg font-bold text-xs shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform flex items-center justify-center gap-2">
+                        <i class="ph-bold ph-barcode"></i> طباعة باركود
+                    </button>
+                    <div class="flex gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform delay-75">
+                        <button onclick="app.editProd('${p.id}')" class="bg-blue-600 text-white p-2.5 rounded-lg font-bold shadow-lg hover:bg-blue-700">
+                            <i class="ph-bold ph-pencil-simple"></i>
+                        </button>
+                        <button onclick="app.deleteProd('${p.id}')" class="bg-red-600 text-white p-2.5 rounded-lg font-bold shadow-lg hover:bg-red-700">
+                            <i class="ph-bold ph-trash"></i>
+                        </button>
                     </div>
                 </div>
-                `;
-            }).join('');
-            
-            // If no products, show message
-            if (productsToShow.length === 0) {
-                g.innerHTML = '<div class="col-span-full text-center py-12 text-slate-400"><i class="ph ph-package text-4xl mb-3"></i><p>لا توجد منتجات</p></div>';
-            }
-        },
-
+                <span class="absolute top-3 left-3 bg-white/90 backdrop-blur px-2 py-1 rounded-lg text-[10px] font-bold uppercase tracking-widest text-slate-600 shadow-sm">${p.cat}</span>
+            </div>
+            <div class="p-5">
+                <h4 class="font-bold text-lg text-slate-800 dark:text-white mb-1 truncate">${p.name}</h4>
+                
+                ${hasSizes && sizeButtons ? `
+                <div class="mb-3">
+                    <div class="text-xs text-slate-500 mb-2 font-bold">طباعة باركود حسب المقاس:</div>
+                    <div class="flex flex-wrap gap-1">
+                        ${sizeButtons}
+                    </div>
+                </div>
+                ` : ''}
+                
+                <div class="flex justify-between items-center mt-2 mb-4">
+                    ${marginBadge}
+                    <span class="text-xs text-slate-400 font-bold bg-slate-100 dark:bg-slate-700 px-2 py-1 rounded-md">Stock: ${p.stock}</span>
+                </div>
+                <div class="flex justify-between items-end">
+                    <div>
+                        <div class="text-xs text-red-500 font-bold">شراء: ${p.buyPrice ? p.buyPrice.toLocaleString() : '-'}</div>
+                        <div class="text-orange-600 dark:text-orange-400 font-black text-xl">بيع: ${p.sellPrice.toLocaleString()}</div>
+                    </div>
+                    <div class="text-xs text-green-600 font-bold">ربح: ${p.profit ? p.profit.toLocaleString() : '-'}</div>
+                </div>
+            </div>
+        </div>
+        `;
+    }).join('');
+    
+    // If no products, show message
+    if (productsToShow.length === 0) {
+        g.innerHTML = '<div class="col-span-full text-center py-12 text-slate-400"><i class="ph ph-package text-4xl mb-3"></i><p>لا توجد منتجات</p></div>';
+    }
+},
         editProd: function(id) {
-            const p = this.data.products.find(x => x.id === id);
-            if(!p) return;
-            
-            this.openModal('prodModal');
-            document.getElementById('prodModalTitle').innerText = 'تعديل منتج';
-            document.getElementById('pId').value = p.id;
-            document.getElementById('pName').value = p.name;
-            document.getElementById('pSellPrice').value = p.sellPrice || p.price;
-            document.getElementById('pBuyPrice').value = p.buyPrice || '';
-            document.getElementById('pCat').value = p.cat;
-            document.getElementById('pBar').value = p.bar;
-            
-            // Handle image
-            const imgPrev = document.getElementById('pImgPrev');
-            if (p.img && p.img !== 'undefined') {
-                imgPrev.src = p.img;
-                imgPrev.classList.remove('hidden');
-            } else {
-                imgPrev.classList.add('hidden');
+    const p = this.data.products.find(x => x.id === id);
+    if(!p) return;
+    
+    this.openModal('prodModal');
+    document.getElementById('prodModalTitle').innerText = 'تعديل منتج';
+    document.getElementById('pId').value = p.id;
+    document.getElementById('pName').value = p.name;
+    document.getElementById('pSellPrice').value = p.sellPrice || p.price;
+    document.getElementById('pBuyPrice').value = p.buyPrice || '';
+    document.getElementById('pCat').value = p.cat;
+    document.getElementById('pBar').value = p.bar;
+    
+    // Handle image
+    const imgPrev = document.getElementById('pImgPrev');
+    if (p.img && p.img !== 'undefined') {
+        imgPrev.src = p.img;
+        imgPrev.classList.remove('hidden');
+    } else {
+        imgPrev.classList.add('hidden');
+    }
+    
+    this.calcProfit();
+    this.toggleSizes();
+    
+    // Clear all size inputs first
+    document.querySelectorAll('#sizeBox input').forEach(input => {
+        input.value = '';
+    });
+    
+    if(p.cat === 'shoes') {
+        // For shoes: only populate sizes 38-47
+        Object.entries(p.sizes).forEach(([sz, val]) => {
+            const sizeNum = parseInt(sz);
+            // Only populate sizes in the 38-47 range
+            if (sizeNum >= 38 && sizeNum <= 47) {
+                const el = document.getElementById(`sz_s_${sz}`);
+                if(el) el.value = val;
             }
-            
-            this.calcProfit();
-            this.toggleSizes();
-            
-            // Clear all size inputs first
-            document.querySelectorAll('#sizeBox input').forEach(input => {
-                input.value = '';
-            });
-            
-            if(p.cat === 'shoes') {
-                Object.entries(p.sizes).forEach(([sz, val]) => {
-                    const el = document.getElementById(`sz_s_${sz}`);
-                    if(el) el.value = val;
-                });
-            } else if(p.cat === 'clothes') {
-                Object.entries(p.sizes).forEach(([sz, val]) => {
-                    const el = document.getElementById(`sz_c_${sz}`);
-                    if(el) el.value = val;
-                });
-            } else if(p.cat === 'perfume') {
-                Object.entries(p.sizes).forEach(([sz, val]) => {
-                    const el = document.getElementById(`sz_p_${sz}`);
-                    if(el) el.value = val;
-                });
-            } else {
-                document.getElementById('pStock').value = p.stock || 0;
-            }
-        },
+        });
+    } else if(p.cat === 'clothes') {
+        Object.entries(p.sizes).forEach(([sz, val]) => {
+            const el = document.getElementById(`sz_c_${sz}`);
+            if(el) el.value = val;
+        });
+    } else if(p.cat === 'perfume') {
+        Object.entries(p.sizes).forEach(([sz, val]) => {
+            const el = document.getElementById(`sz_p_${sz}`);
+            if(el) el.value = val;
+        });
+    } else {
+        document.getElementById('pStock').value = p.stock || 0;
+    }
+},
 
         deleteProd: function(id) {
             if(confirm('هل أنت متأكد من حذف هذا المنتج نهائياً؟')) {
@@ -2666,6 +2696,41 @@ renderAnalyticsCharts: function() {
             this.prQ = Math.max(1, (this.prQ || 10) + n); 
             document.getElementById('prQty').innerText = this.prQ; 
         },
+        // Function for size-specific barcode printing
+prepSizePrint: function(id, size) {
+    const p = this.data.products.find(x=>x.id===id);
+    if (!p) return;
+    
+    // Generate a unique barcode for this size
+    // We'll combine product barcode with size code
+    const sizeBarcode = this.generateSizeBarcode(p.bar, size);
+    
+    // Store data for printing
+    this.sizePrintData = {
+        id: id,
+        name: p.name,
+        size: size,
+        price: p.sellPrice,
+        baseBarcode: p.bar,
+        sizeBarcode: sizeBarcode
+    };
+    
+    this.prQ = 10; 
+    document.getElementById('prQty').innerText = 10;
+    
+    // Update modal for size printing
+    document.getElementById('printModal').querySelector('h3').innerText = `طباعة باركود للمقاس ${size}`;
+    document.getElementById('prId').value = id;
+    this.openModal('printModal');
+},
+
+// Generate unique barcode for size
+generateSizeBarcode: function(baseBarcode, size) {
+    // Create a unique barcode by combining base barcode with size
+    // You can customize this logic based on your needs
+    const sizeCode = size.toString().padStart(2, '0');
+    return baseBarcode + sizeCode;
+},
         
 doPrint: function() {
     const id = document.getElementById('prId').value;
@@ -2675,20 +2740,39 @@ doPrint: function() {
     const a = document.getElementById('printArea'); 
     a.innerHTML = '';
     
+    // Check if we're printing size-specific barcode
+    const isSizePrint = this.sizePrintData && this.sizePrintData.id === id;
+    
     for(let i = 0; i < this.prQ; i++) {
+        let barcodeToPrint = p.bar;
+        let displayText = p.name;
+        let priceText = p.sellPrice.toLocaleString() + ' دينار';
+        
+        if (isSizePrint) {
+            barcodeToPrint = this.sizePrintData.sizeBarcode;
+            displayText = `${p.name} - المقاس: ${this.sizePrintData.size}`;
+            priceText = p.sellPrice.toLocaleString() + ' دينار';
+        }
+        
         a.innerHTML += `
             <div class="print-item">
-                <div style="font-weight:bold;font-size:12px;margin-bottom:5px;text-align:center">${p.name}</div>
+                <div style="font-weight:bold;font-size:12px;margin-bottom:5px;text-align:center">${displayText}</div>
                 <svg id="pb_${i}" class="print-bar"></svg>
-                <div style="font-weight:900;font-size:14px;text-align:center;margin-top:5px">${p.sellPrice.toLocaleString()} دينار</div>
+                <div style="font-weight:900;font-size:14px;text-align:center;margin-top:5px">${priceText}</div>
+                ${isSizePrint ? `<div style="font-size:10px;text-align:center;color:#666;">المقاس: ${this.sizePrintData.size}</div>` : ''}
             </div>`;
     }
     
     setTimeout(() => { 
         for(let i = 0; i < this.prQ; i++) {
             try {
+                let barcodeToPrint = p.bar;
+                if (this.sizePrintData && this.sizePrintData.id === id) {
+                    barcodeToPrint = this.sizePrintData.sizeBarcode;
+                }
+                
                 // Create barcode with number displayed
-                JsBarcode(`#pb_${i}`, p.bar, { 
+                JsBarcode(`#pb_${i}`, barcodeToPrint, { 
                     format: "CODE128", 
                     width: 2, 
                     height: 35, 
@@ -2703,6 +2787,10 @@ doPrint: function() {
         setTimeout(() => { 
             window.print(); 
             this.closeModal('printModal'); 
+            // Clear size print data after printing
+            if (this.sizePrintData) {
+                this.sizePrintData = null;
+            }
         }, 500);
     }, 100);
 },
