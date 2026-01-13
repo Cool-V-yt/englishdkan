@@ -1201,6 +1201,45 @@ app.renderAnalyticsCharts = function() {
     <div id="printArea" class="hidden"></div>
 
 <script>
+    // Define app immediately to prevent "app is not defined" errors
+window.app = window.app || {};
+
+// Then add your DOMContentLoaded listener
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded');
+    
+    // Theme button event listener
+    const themeBtn = document.getElementById('themeBtn');
+    if (themeBtn) {
+        themeBtn.addEventListener('click', function() {
+            if (window.app && window.app.toggleTheme) {
+                window.app.toggleTheme();
+            } else {
+                // Fallback
+                const icon = document.getElementById('themeIcon');
+                if (icon) {
+                    icon.parentElement.classList.add('spin-once');
+                    setTimeout(() => icon.parentElement.classList.remove('spin-once'), 500);
+                }
+                
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.theme = 'light';
+                    if (icon) icon.className = 'ph-fill ph-moon-stars text-xl';
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.theme = 'dark';
+                    if (icon) icon.className = 'ph-fill ph-sun text-xl text-yellow-500';
+                }
+            }
+        });
+    }
+    
+    // Initialize app if it exists
+    if (window.app && window.app.init) {
+        window.app.init();
+    }
+});
     const DB_KEY = 'EnglishDkan_Restored_V2'; 
     const API_BASE = 'https://englishdkan.onrender.com/api';
     const APP_ID = 'englishdkan';
@@ -1281,26 +1320,55 @@ window.app.login = window.app.login || function() {
     console.log('App login function called but app not fully loaded yet');
     alert('System is still loading. Please wait...');
 };
-        init: function() {
-            // Set theme
-            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                document.documentElement.classList.add('dark');
-                document.getElementById('themeIcon').className = 'ph-fill ph-sun text-xl text-yellow-500';
-            } else {
-                document.documentElement.classList.remove('dark');
-                document.getElementById('themeIcon').className = 'ph-fill ph-moon-stars text-xl';
-            }
-            this.charts = {}; // Initialize empty charts object
-            // Load data
-            this.loadFromBackend();
-            
-            // Initialize size inputs for product modal
-            this.initSizeInputs();
-            
-            // Initialize main chart
-            setTimeout(() => this.initMainChart(), 500);
-        },
-        
+       init: function() {
+    console.log('App initialization started');
+    
+    // Set theme
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+        document.getElementById('themeIcon').className = 'ph-fill ph-sun text-xl text-yellow-500';
+    } else {
+        document.documentElement.classList.remove('dark');
+        document.getElementById('themeIcon').className = 'ph-fill ph-moon-stars text-xl';
+    }
+    
+    this.charts = {};
+    
+    // Initialize with empty data first (since MongoDB is empty)
+    if (!this.data) {
+        console.log('No data loaded, using default data');
+        this.data = {
+            products: [],
+            users: [],
+            sales: [],
+            returns: [],
+            cart: [],
+            returnCart: [],
+            config: { pass: '6677' },
+            current: null
+        };
+    }
+    
+    // Try to load from backend anyway
+    this.loadFromBackend().then(success => {
+        console.log('Backend load result:', success);
+        if (!success) {
+            console.log('Using default data structure');
+        }
+    }).catch(error => {
+        console.error('Load error:', error);
+    });
+    
+    // Initialize size inputs
+    this.initSizeInputs();
+    
+    // Initialize main chart
+    setTimeout(() => {
+        if (typeof this.initMainChart === 'function') {
+            this.initMainChart();
+        }
+    }, 500);
+},
 initSizeInputs: function() {
     // Shoes sizes: 38-47
     const shoesContainer = document.getElementById('s_shoes');
@@ -3433,9 +3501,45 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Make sure app is initialized
-window.addEventListener('DOMContentLoaded', () => {
-    app.init();
-});
+//window.addEventListener('DOMContentLoaded', () => {
+    //app.init();
+//});
+
+    // ========== INITIALIZE APP WHEN READY ==========
+// Wait for everything to load
+function initializeApp() {
+    console.log('Initializing app...');
+    
+    // Check if app is defined
+    if (typeof app !== 'undefined') {
+        // Initialize the app
+        if (app.init) {
+            app.init();
+        }
+        
+        // Add theme button event listener
+        const themeBtn = document.getElementById('themeBtn');
+        if (themeBtn) {
+            themeBtn.addEventListener('click', function() {
+                if (app && app.toggleTheme) {
+                    app.toggleTheme();
+                }
+            });
+        }
+    } else {
+        console.error('App is not defined!');
+        // Try again in 500ms
+        setTimeout(initializeApp, 500);
+    }
+}
+
+// Start initialization
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeApp);
+} else {
+    // DOM already loaded
+    initializeApp();
+}
 </script>
 </body>
 </html>
