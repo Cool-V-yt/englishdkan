@@ -155,47 +155,47 @@ canvas[aria-label*="chart"] {
     </div>
 
     <!-- Login Screen -->
-<!-- Login Screen -->
-<div id="loginScreen" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900 overflow-hidden">
-    <!-- Background Blobs -->
-    <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-500/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
-    <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
+    <div id="loginScreen" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900 overflow-hidden">
+        <!-- Background Blobs -->
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-500/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
+        <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
 
-    <div class="relative bg-white/10 backdrop-blur-xl border border-white/10 p-8 md:p-12 rounded-[2.5rem] shadow-2xl w-full max-w-md text-center float-anim mx-4">
-        <div class="w-20 h-20 bg-gradient-to-tr from-orange-400 to-orange-600 rounded-3xl mx-auto mb-6 flex items-center justify-center shadow-lg shadow-orange-500/30">
-            <i class="ph-fill ph-sneaker text-4xl text-white"></i>
-        </div>
-        <h1 class="text-3xl font-black text-white mb-2 tracking-tight">EnglishDkan</h1>
-        <p class="text-slate-400 mb-8 font-light text-sm">بوابة النظام المتكامل</p>
-        
-        <div class="space-y-6">
-            <div class="relative">
-                <i class="ph ph-lock-key absolute top-1/2 right-4 -translate-y-1/2 text-slate-400 text-xl"></i>
-                <input type="password" id="loginPass" readonly placeholder="••••" class="w-full bg-slate-800/50 border border-slate-700 text-white rounded-2xl px-12 py-4 focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all text-center tracking-widest placeholder:tracking-normal text-xl cursor-default">
+        <div class="relative bg-white/10 backdrop-blur-xl border border-white/10 p-8 md:p-12 rounded-[2.5rem] shadow-2xl w-full max-w-md text-center float-anim mx-4">
+            <div class="w-20 h-20 bg-gradient-to-tr from-orange-400 to-orange-600 rounded-3xl mx-auto mb-6 flex items-center justify-center shadow-lg shadow-orange-500/30">
+                <i class="ph-fill ph-sneaker text-4xl text-white"></i>
             </div>
+            <h1 class="text-3xl font-black text-white mb-2 tracking-tight">EnglishDkan</h1>
+            <p class="text-slate-400 mb-8 font-light text-sm">بوابة النظام المتكامل</p>
+            
+            <div class="space-y-6">
+                <div class="relative">
+                    <i class="ph ph-lock-key absolute top-1/2 right-4 -translate-y-1/2 text-slate-400 text-xl"></i>
+                    <input type="password" id="loginPass" readonly placeholder="••••" class="w-full bg-slate-800/50 border border-slate-700 text-white rounded-2xl px-12 py-4 focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all text-center tracking-widest placeholder:tracking-normal text-xl cursor-default">
+                </div>
 
-            <!-- Number Pad with data attributes -->
-            <div class="grid grid-cols-3 gap-3">
-                <button data-num="1" class="num-btn bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">1</button>
-                <button data-num="2" class="num-btn bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">2</button>
-                <button data-num="3" class="num-btn bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">3</button>
-                <button data-num="4" class="num-btn bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">4</button>
-                <button data-num="5" class="num-btn bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">5</button>
-                <button data-num="6" class="num-btn bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">6</button>
-                <button data-num="7" class="num-btn bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">7</button>
-                <button data-num="8" class="num-btn bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">8</button>
-                <button data-num="9" class="num-btn bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">9</button>
-                <button data-num="clear" class="num-btn bg-red-500/20 hover:bg-red-500/30 text-red-400 font-bold py-4 rounded-2xl border border-red-500/20 transition-all active:scale-90"><i class="ph-bold ph-trash"></i></button>
-                <button data-num="0" class="num-btn bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">0</button>
-                <button data-num="delete" class="num-btn bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90"><i class="ph-bold ph-backspace"></i></button>
+                <!-- Number Pad -->
+                <div class="grid grid-cols-3 gap-3">
+                    <button onclick="app.numInput('1')" class="bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">1</button>
+                    <button onclick="app.numInput('2')" class="bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">2</button>
+                    <button onclick="app.numInput('3')" class="bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">3</button>
+                    <button onclick="app.numInput('4')" class="bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">4</button>
+                    <button onclick="app.numInput('5')" class="bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">5</button>
+                    <button onclick="app.numInput('6')" class="bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">6</button>
+                    <button onclick="app.numInput('7')" class="bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">7</button>
+                    <button onclick="app.numInput('8')" class="bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">8</button>
+                    <button onclick="app.numInput('9')" class="bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">9</button>
+                    <button onclick="app.numClear()" class="bg-red-500/20 hover:bg-red-500/30 text-red-400 font-bold py-4 rounded-2xl border border-red-500/20 transition-all active:scale-90"><i class="ph-bold ph-trash"></i></button>
+                    <button onclick="app.numInput('0')" class="bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90">0</button>
+                    <button onclick="app.numDelete()" class="bg-white/10 hover:bg-white/20 text-white font-bold py-4 rounded-2xl border border-white/5 transition-all active:scale-90"><i class="ph-bold ph-backspace"></i></button>
+                </div>
+
+                <button onclick="app.login()" class="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 text-white font-bold py-4 rounded-2xl shadow-lg shadow-orange-500/20 transition-all btn-press flex items-center justify-center gap-2">
+                    <span>دخول</span> <i class="ph-bold ph-arrow-left"></i>
+                </button>
             </div>
-
-            <button id="loginBtn" class="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-400 hover:to-orange-500 text-white font-bold py-4 rounded-2xl shadow-lg shadow-orange-500/20 transition-all btn-press flex items-center justify-center gap-2">
-                <span>دخول</span> <i class="ph-bold ph-arrow-left"></i>
-            </button>
         </div>
     </div>
-</div>
+
     <!-- App Layout -->
     <div id="mainApp" class="flex h-screen hidden overflow-hidden">
         
@@ -256,9 +256,11 @@ canvas[aria-label*="chart"] {
                     <p class="text-slate-500 dark:text-slate-400 font-medium text-sm">نظام إدارة المخزون والمبيعات</p>
                 </div>
                 <div class="flex items-center gap-4">
-              <button id="themeBtn" class="w-12 h-12 rounded-full bg-white dark:bg-slate-800 shadow-sm border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-yellow-400 hover:scale-105 transition-transform">
-    <i id="themeIcon" class="ph-fill ph-moon-stars text-xl"></i>
-</button>
+                    <!-- Dark Mode Toggle -->
+                    <button onclick="app.toggleTheme()" id="themeBtn" class="w-12 h-12 rounded-full bg-white dark:bg-slate-800 shadow-sm border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-yellow-400 hover:scale-105 transition-transform">
+                        <i id="themeIcon" class="ph-fill ph-moon-stars text-xl"></i>
+                    </button>
+
                     <div class="bg-white dark:bg-slate-800 pl-6 pr-2 py-2 rounded-full shadow-sm border border-slate-200 dark:border-slate-700 flex items-center gap-3">
                         <div class="flex flex-col items-end mr-3">
                             <span class="text-[10px] text-slate-400 font-bold uppercase">الحساب</span>
@@ -390,21 +392,7 @@ canvas[aria-label*="chart"] {
                     <p class="text-sm opacity-90 font-bold">إجمالي الإيرادات</p>
                 </div>
             </div>
-<!-- Add these lines INSIDE the analytics page, around line 525: -->
 
-<!-- Best Selling Products -->
-<div id="topProductsList" class="space-y-3 max-h-80 overflow-y-auto pr-2"></div>
-
-<!-- Recent Sales -->
-<div id="recentSalesList" class="space-y-3 max-h-80 overflow-y-auto pr-2"></div>
-
-<!-- Employee Performance -->
-<div id="employeePerformance" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
-
-<!-- Charts that don't exist -->
-<div id="salesTrendChart" style="height: 250px;"></div>
-<div id="categoryChart" style="height: 250px;"></div>
-<div id="hourlyChart" style="height: 250px;"></div>
             <!-- Total Profit -->
             <div class="bg-gradient-to-br from-purple-500 to-purple-600 p-6 rounded-3xl shadow-xl text-white relative overflow-hidden group hover:scale-105 transition-transform">
                 <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
@@ -902,82 +890,64 @@ app.renderAnalyticsCharts = function() {
 </script>
 
 
-            <!-- Returns Page - Add barcode search mode -->
-<div id="returns" class="page">
-    <div class="space-y-6">
-        <!-- Tabs -->
-        <div class="flex gap-3 mb-6">
-            <button onclick="app.retTab('new')" id="btnRetNew" class="flex-1 md:flex-none px-8 py-3 rounded-xl font-bold bg-orange-600 text-white shadow-lg shadow-orange-200 dark:shadow-none transition-all btn-press flex items-center justify-center gap-2">
-                <i class="ph-bold ph-plus-circle"></i> إرجاع جديد
-            </button>
-            <button onclick="app.retTab('hist')" id="btnRetHist" class="flex-1 md:flex-none px-8 py-3 rounded-xl font-bold bg-white dark:bg-slate-700 text-slate-500 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-600 shadow-sm border border-slate-200 dark:border-slate-600 transition-all btn-press flex items-center justify-center gap-2">
-                <i class="ph-bold ph-clock-counter-clockwise"></i> سجل المرتجعات
-            </button>
-        </div>
+            <!-- Returns Page -->
+            <div id="returns" class="page">
+                <div class="space-y-6">
+                    <!-- Tabs -->
+                    <div class="flex gap-3 mb-6">
+                        <button onclick="app.retTab('new')" id="btnRetNew" class="flex-1 md:flex-none px-8 py-3 rounded-xl font-bold bg-orange-600 text-white shadow-lg shadow-orange-200 dark:shadow-none transition-all btn-press flex items-center justify-center gap-2">
+                            <i class="ph-bold ph-plus-circle"></i> إرجاع جديد
+                        </button>
+                        <button onclick="app.retTab('hist')" id="btnRetHist" class="flex-1 md:flex-none px-8 py-3 rounded-xl font-bold bg-white dark:bg-slate-700 text-slate-500 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-600 shadow-sm border border-slate-200 dark:border-slate-600 transition-all btn-press flex items-center justify-center gap-2">
+                            <i class="ph-bold ph-clock-counter-clockwise"></i> سجل المرتجعات
+                        </button>
+                    </div>
 
-        <!-- New Return Section -->
-        <div id="viewRetNew" class="flex flex-col lg:flex-row gap-6 h-[calc(100vh-200px)]">
-            <div class="flex-1 bg-white dark:bg-slate-800 rounded-[2rem] shadow-sm border border-slate-100 dark:border-slate-700 p-6 flex flex-col">
-                <!-- Barcode Search Input -->
-                <div class="relative mb-6">
-                    <i class="ph ph-barcode absolute top-1/2 right-4 -translate-y-1/2 text-slate-400"></i>
-                    <input type="text" 
-                           id="retSearch" 
-                           placeholder="امسح باركود المنتج للإرجاع..." 
-                           class="w-full bg-slate-50 dark:bg-slate-700 border-none rounded-2xl pr-12 pl-4 py-4 focus:ring-2 focus:ring-orange-100 dark:focus:ring-orange-900 outline-none transition-all dark:text-white text-center font-mono"
-                           onkeypress="app.handleRetBarcodeSearch(event)">
-                    <div class="text-xs text-slate-400 mt-1 text-center">اضغط Enter بعد مسح الباركود</div>
-                </div>
-                
-                <!-- Or search by name -->
-                <div class="relative mb-6">
-                    <i class="ph ph-magnifying-glass absolute top-1/2 right-4 -translate-y-1/2 text-slate-400"></i>
-                    <input type="text" 
-                           id="retNameSearch" 
-                           placeholder="أو ابحث بالاسم..." 
-                           class="w-full bg-slate-50 dark:bg-slate-700 border-none rounded-2xl pr-12 pl-4 py-4 focus:ring-2 focus:ring-orange-100 dark:focus:ring-orange-900 outline-none transition-all dark:text-white"
-                           onkeyup="app.renderRetGrid()">
-                </div>
-                
-                <div id="retGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 overflow-y-auto pr-2 custom-scrollbar content-start"></div>
-            </div>
-            
-            <div class="w-full lg:w-96 bg-white dark:bg-slate-800 rounded-[2rem] shadow-sm border border-slate-100 dark:border-slate-700 p-6 flex flex-col relative overflow-hidden">
-                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-400 to-red-500"></div>
-                <h3 class="font-bold text-xl mb-4 text-slate-800 dark:text-white">قائمة الإرجاع</h3>
-                <div id="retCartList" class="flex-1 overflow-y-auto mb-4 space-y-3 custom-scrollbar"></div>
-                <div class="bg-slate-50 dark:bg-slate-700 p-4 rounded-2xl border border-slate-100 dark:border-slate-600">
-                    <label class="block text-xs font-bold text-slate-400 mb-2 uppercase">السبب</label>
-                    <select id="retReasonGlobal" class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-xl px-3 py-3 mb-4 focus:ring-2 focus:ring-orange-500 outline-none font-bold text-slate-700 dark:text-white">
-                        <option>استبدال مقاس</option>
-                        <option>منتج تالف</option>
-                        <option>لم يعجب العميل</option>
-                        <option>أخرى</option>
-                    </select>
-                    <button onclick="app.processReturn()" class="w-full bg-slate-800 dark:bg-white dark:text-slate-900 text-white font-bold py-3.5 rounded-xl shadow-lg hover:bg-slate-700 dark:hover:bg-slate-200 transition-all btn-press mb-2">تأكيد الإرجاع</button>
-                    <button onclick="app.clearRetCart()" class="w-full text-red-500 text-sm font-bold py-2 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors">إلغاء</button>
-                </div>
-            </div>
-        </div>
+                    <!-- New Return Section -->
+                    <div id="viewRetNew" class="flex flex-col lg:flex-row gap-6 h-[calc(100vh-200px)]">
+                        <div class="flex-1 bg-white dark:bg-slate-800 rounded-[2rem] shadow-sm border border-slate-100 dark:border-slate-700 p-6 flex flex-col">
+                            <div class="relative mb-6">
+                                <i class="ph ph-magnifying-glass absolute top-1/2 right-4 -translate-y-1/2 text-slate-400"></i>
+                                <input type="text" id="retSearch" placeholder="بحث عن منتج..." class="w-full bg-slate-50 dark:bg-slate-700 border-none rounded-2xl pr-12 pl-4 py-4 focus:ring-2 focus:ring-orange-100 dark:focus:ring-orange-900 outline-none transition-all dark:text-white" onkeyup="app.renderRetGrid()">
+                            </div>
+                            <div id="retGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 overflow-y-auto pr-2 custom-scrollbar content-start"></div>
+                        </div>
+                        <div class="w-full lg:w-96 bg-white dark:bg-slate-800 rounded-[2rem] shadow-sm border border-slate-100 dark:border-slate-700 p-6 flex flex-col relative overflow-hidden">
+                            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-400 to-red-500"></div>
+                            <h3 class="font-bold text-xl mb-4 text-slate-800 dark:text-white">قائمة الإرجاع</h3>
+                            <div id="retCartList" class="flex-1 overflow-y-auto mb-4 space-y-3 custom-scrollbar"></div>
+                            <div class="bg-slate-50 dark:bg-slate-700 p-4 rounded-2xl border border-slate-100 dark:border-slate-600">
+                                <label class="block text-xs font-bold text-slate-400 mb-2 uppercase">السبب</label>
+                                <select id="retReasonGlobal" class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-xl px-3 py-3 mb-4 focus:ring-2 focus:ring-orange-500 outline-none font-bold text-slate-700 dark:text-white">
+                                    <option>استبدال مقاس</option>
+                                    <option>منتج تالف</option>
+                                    <option>لم يعجب العميل</option>
+                                    <option>أخرى</option>
+                                </select>
+                                <button onclick="app.processReturn()" class="w-full bg-slate-800 dark:bg-white dark:text-slate-900 text-white font-bold py-3.5 rounded-xl shadow-lg hover:bg-slate-700 dark:hover:bg-slate-200 transition-all btn-press mb-2">تأكيد الإرجاع</button>
+                                <button onclick="app.clearRetCart()" class="w-full text-red-500 text-sm font-bold py-2 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors">إلغاء</button>
+                            </div>
+                        </div>
+                    </div>
 
-        <!-- History Section -->
-        <div id="viewRetHist" class="hidden">
-            <div class="bg-white dark:bg-slate-800 rounded-[2rem] shadow-sm border border-slate-100 dark:border-slate-700 p-8">
-                <table class="w-full text-right">
-                    <thead class="bg-slate-50 dark:bg-slate-700 text-slate-500 dark:text-slate-300 text-xs uppercase font-bold">
-                        <tr>
-                            <th class="p-5">المنتج</th>
-                            <th class="p-5">تفاصيل</th>
-                            <th class="p-5">السبب</th>
-                            <th class="p-5">التاريخ</th>
-                        </tr>
-                    </thead>
-                    <tbody id="retTable" class="divide-y divide-slate-100 dark:divide-slate-700"></tbody>
-                </table>
+                    <!-- History Section -->
+                    <div id="viewRetHist" class="hidden">
+                        <div class="bg-white dark:bg-slate-800 rounded-[2rem] shadow-sm border border-slate-100 dark:border-slate-700 p-8">
+                            <table class="w-full text-right">
+                                <thead class="bg-slate-50 dark:bg-slate-700 text-slate-500 dark:text-slate-300 text-xs uppercase font-bold">
+                                    <tr>
+                                        <th class="p-5">المنتج</th>
+                                        <th class="p-5">تفاصيل</th>
+                                        <th class="p-5">السبب</th>
+                                        <th class="p-5">التاريخ</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="retTable" class="divide-y divide-slate-100 dark:divide-slate-700"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</div>
 
             <!-- Point of Sale -->
 <div id="pos" class="page">
@@ -1077,6 +1047,10 @@ app.renderAnalyticsCharts = function() {
             </div>
         </div>
     </div>
+
+<!-- Replace your Product Modal (lines 552-597) with this: -->
+
+<!-- Product Modal -->
 <div id="prodModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 hidden flex items-center justify-center transition-all opacity-0 pointer-events-none">
     <div class="bg-white dark:bg-slate-800 p-8 rounded-[2rem] w-full max-w-4xl max-h-[90vh] overflow-y-auto shadow-2xl transform scale-95 transition-transform duration-300">
         <div class="flex justify-between mb-6">
@@ -1124,54 +1098,22 @@ app.renderAnalyticsCharts = function() {
                     </select>
                 </div>
                 
-                <!-- Size Configuration with Barcodes ONLY -->
+                <div class="relative flex items-center gap-2">
+                    <div class="relative w-full">
+                        <i class="ph ph-barcode absolute top-1/2 left-4 -translate-y-1/2 text-slate-400"></i>
+                        <input id="pBar" class="w-full bg-slate-50 dark:bg-slate-700 text-slate-700 dark:text-white border border-slate-100 dark:border-slate-600 p-4 pl-10 rounded-xl font-mono text-sm focus:ring-2 focus:ring-orange-500 outline-none" placeholder="أدخل الباركود يدوياً">
+                    </div>
+                    <button onclick="app.regenBar()" class="p-4 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 transition-colors text-slate-500 dark:text-white" title="توليد باركود عشوائي">
+                        <i class="ph-bold ph-arrows-clockwise"></i>
+                    </button>
+                </div>
+                
                 <div id="sizeBox" class="bg-slate-50 dark:bg-slate-700 p-5 rounded-2xl border border-slate-100 dark:border-slate-600">
-                    <label class="block text-xs font-bold text-slate-400 mb-3 uppercase">المخزون والأحجام والباركود</label>
-                    
-                    <!-- Shoes Sizes (38-47) -->
-                    <div id="s_shoes" class="space-y-3">
-                        <div class="grid grid-cols-4 gap-2 text-xs text-slate-500 font-bold mb-1">
-                            <div class="text-center">المقاس</div>
-                            <div class="text-center">الكمية</div>
-                            <div class="text-center">باركود المقاس</div>
-                            <div class="text-center">طباعة</div>
-                        </div>
-                        <!-- This will be populated by JavaScript -->
-                    </div>
-                    
-                    <!-- Clothes Sizes -->
-                    <div id="s_clothes" class="space-y-3 hidden">
-                        <div class="grid grid-cols-4 gap-2 text-xs text-slate-500 font-bold mb-1">
-                            <div class="text-center">المقاس</div>
-                            <div class="text-center">الكمية</div>
-                            <div class="text-center">باركود المقاس</div>
-                            <div class="text-center">طباعة</div>
-                        </div>
-                        <!-- This will be populated by JavaScript -->
-                    </div>
-                    
-                    <!-- Perfume Sizes -->
-                    <div id="s_perfume" class="space-y-3 hidden">
-                        <div class="grid grid-cols-4 gap-2 text-xs text-slate-500 font-bold mb-1">
-                            <div class="text-center">الحجم</div>
-                            <div class="text-center">الكمية</div>
-                            <div class="text-center">باركود الحجم</div>
-                            <div class="text-center">طباعة</div>
-                        </div>
-                        <!-- This will be populated by JavaScript -->
-                    </div>
-                    
-                    <!-- Accessories (simple quantity) -->
-                    <div id="s_acc" class="hidden">
-                        <div class="grid grid-cols-4 gap-2 items-center">
-                            <div class="text-center font-bold text-slate-700 dark:text-slate-300">عام</div>
-                            <input id="pStock" type="number" placeholder="الكمية" class="border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 dark:text-white rounded-lg text-center p-2 text-sm focus:ring-2 focus:ring-orange-500 outline-none transition-shadow">
-                            <input id="pAccBarcode" type="text" placeholder="باركود المنتج" class="border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 dark:text-white rounded-lg text-center p-2 text-sm font-mono text-xs focus:ring-2 focus:ring-blue-500 outline-none transition-shadow">
-                            <button onclick="app.printAccBarcode()" class="p-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-600 dark:hover:bg-slate-500 text-slate-600 dark:text-slate-300 rounded-lg text-xs transition-colors">
-                                <i class="ph-bold ph-printer"></i>
-                            </button>
-                        </div>
-                    </div>
+                    <label class="block text-xs font-bold text-slate-400 mb-3 uppercase">المخزون والأحجام</label>
+                    <div id="s_shoes" class="grid grid-cols-5 gap-3"></div>
+                    <div id="s_clothes" class="grid grid-cols-5 gap-3 hidden"></div>
+                    <div id="s_perfume" class="grid grid-cols-3 gap-3 hidden"></div>
+                    <input id="pStock" type="number" placeholder="الكمية المتوفرة" class="w-full p-3 border border-slate-200 dark:border-slate-600 dark:bg-slate-600 dark:text-white rounded-xl hidden outline-none focus:border-orange-500">
                 </div>
 
                 <!-- Save Button -->
@@ -1215,10 +1157,6 @@ app.renderAnalyticsCharts = function() {
     <div id="printArea" class="hidden"></div>
 
 <script>
-    // Define app immediately to prevent "app is not defined" errors
-window.app = window.app || {};
-
-
     const DB_KEY = 'EnglishDkan_Restored_V2'; 
     const API_BASE = 'https://englishdkan.onrender.com/api';
     const APP_ID = 'englishdkan';
@@ -1226,183 +1164,52 @@ window.app = window.app || {};
     const app = {
         data: { products: [], users: [], sales: [], returns: [], cart: [], returnCart: [], config: { pass: '6677' }, current: null },
         charts: {}, // Store chart instances
-        // Add this at the VERY BEGINNING of your <script> section
-    
-    // Add click event to login button
-    const loginBtn = document.getElementById('loginBtn');
-    if (loginBtn) {
-        loginBtn.addEventListener('click', function() {
-            // Try to use app.login if it exists
-            if (window.app && window.app.login) {
-                window.app.login();
+        
+        init: function() {
+            // Set theme
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+                document.getElementById('themeIcon').className = 'ph-fill ph-sun text-xl text-yellow-500';
             } else {
-                // Fallback: just show password in console for debugging
-                const password = document.getElementById('loginPass').value;
-                console.log('Login attempted with password:', password);
-                alert('System is loading... Please wait a moment and try again.');
+                document.documentElement.classList.remove('dark');
+                document.getElementById('themeIcon').className = 'ph-fill ph-moon-stars text-xl';
             }
-        });
-    }
-    
-    // Remove readonly attribute from password input
-    const passInput = document.getElementById('loginPass');
-    if (passInput) {
-        passInput.removeAttribute('readonly');
-        passInput.classList.remove('cursor-default');
-    }
-});
-
-// Define app as a global variable immediately
-window.app = window.app || {};
-
-// Add placeholder functions to prevent errors
-window.app.numInput = window.app.numInput || function(val) {
-    const input = document.getElementById('loginPass');
-    if (input) input.value += val;
-};
-
-window.app.numDelete = window.app.numDelete || function() {
-    const input = document.getElementById('loginPass');
-    if (input) input.value = input.value.slice(0, -1);
-};
-
-window.app.numClear = window.app.numClear || function() {
-    const input = document.getElementById('loginPass');
-    if (input) input.value = '';
-};
-
-window.app.login = window.app.login || function() {
-    console.log('App login function called but app not fully loaded yet');
-    alert('System is still loading. Please wait...');
-};
-       init: function() {
-    console.log('App initialization started');
-    
-    // Set theme
-    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark');
-        document.getElementById('themeIcon').className = 'ph-fill ph-sun text-xl text-yellow-500';
-    } else {
-        document.documentElement.classList.remove('dark');
-        document.getElementById('themeIcon').className = 'ph-fill ph-moon-stars text-xl';
-    }
-    
-    this.charts = {};
-    
-    // Initialize with empty data first (since MongoDB is empty)
-    if (!this.data) {
-        console.log('No data loaded, using default data');
-        this.data = {
-            products: [],
-            users: [],
-            sales: [],
-            returns: [],
-            cart: [],
-            returnCart: [],
-            config: { pass: '6677' },
-            current: null
-        };
-    }
-    
-    // Try to load from backend anyway
-    this.loadFromBackend().then(success => {
-        console.log('Backend load result:', success);
-        if (!success) {
-            console.log('Using default data structure');
-        }
-    }).catch(error => {
-        console.error('Load error:', error);
-    });
-    
-    // Initialize size inputs
-    this.initSizeInputs();
-    
-    // Initialize main chart
-    setTimeout(() => {
-        if (typeof this.initMainChart === 'function') {
-            this.initMainChart();
-        }
-    }, 500);
-},
-initSizeInputs: function() {
-    // Shoes sizes: 38-47
-    const shoesContainer = document.getElementById('s_shoes');
-    if (shoesContainer) {
-        let shoesHTML = '';
-        for(let i=38; i<=47; i++) {
-            shoesHTML += `
-            <div class="grid grid-cols-4 gap-2 items-center">
-                <div class="text-center font-bold text-slate-700 dark:text-slate-300">${i}</div>
-                <input type="number" 
-                       id="sz_s_qty_${i}" 
-                       placeholder="0" 
-                       min="0"
-                       class="border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 dark:text-white rounded-lg text-center p-2 text-sm focus:ring-2 focus:ring-orange-500 outline-none transition-shadow">
-                <input type="text" 
-                       id="sz_s_barcode_${i}" 
-                       placeholder="باركود ${i}" 
-                       class="border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 dark:text-white rounded-lg text-center p-2 text-sm font-mono text-xs focus:ring-2 focus:ring-blue-500 outline-none transition-shadow">
-                <button onclick="app.printSizeBarcode(${i})" 
-                        class="p-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-600 dark:hover:bg-slate-500 text-slate-600 dark:text-slate-300 rounded-lg text-xs transition-colors">
-                    <i class="ph-bold ph-printer"></i>
-                </button>
-            </div>`;
-        }
-        shoesContainer.innerHTML = shoesHTML;
-    }
-    
-    // Clothes sizes
-    const clothesContainer = document.getElementById('s_clothes');
-    if (clothesContainer) {
-        let clothesHTML = '';
-        ['S','M','L','XL','XXL'].forEach(s => {
-            clothesHTML += `
-            <div class="grid grid-cols-4 gap-2 items-center">
-                <div class="text-center font-bold text-slate-700 dark:text-slate-300">${s}</div>
-                <input type="number" 
-                       id="sz_c_qty_${s}" 
-                       placeholder="0" 
-                       min="0"
-                       class="border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 dark:text-white rounded-lg text-center p-2 text-sm focus:ring-2 focus:ring-orange-500 outline-none transition-shadow">
-                <input type="text" 
-                       id="sz_c_barcode_${s}" 
-                       placeholder="باركود ${s}" 
-                       class="border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 dark:text-white rounded-lg text-center p-2 text-sm font-mono text-xs focus:ring-2 focus:ring-blue-500 outline-none transition-shadow">
-                <button onclick="app.printSizeBarcode('${s}')" 
-                        class="p-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-600 dark:hover:bg-slate-500 text-slate-600 dark:text-slate-300 rounded-lg text-xs transition-colors">
-                    <i class="ph-bold ph-printer"></i>
-                </button>
-            </div>`;
-        });
-        clothesContainer.innerHTML = clothesHTML;
-    }
-    
-    // Perfume sizes
-    const perfumeContainer = document.getElementById('s_perfume');
-    if (perfumeContainer) {
-        let perfumeHTML = '';
-        ['3ml','50ml','100ml'].forEach(s => {
-            perfumeHTML += `
-            <div class="grid grid-cols-4 gap-2 items-center">
-                <div class="text-center font-bold text-slate-700 dark:text-slate-300">${s}</div>
-                <input type="number" 
-                       id="sz_p_qty_${s}" 
-                       placeholder="0" 
-                       min="0"
-                       class="border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 dark:text-white rounded-lg text-center p-2 text-sm focus:ring-2 focus:ring-orange-500 outline-none transition-shadow">
-                <input type="text" 
-                       id="sz_p_barcode_${s}" 
-                       placeholder="باركود ${s}" 
-                       class="border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 dark:text-white rounded-lg text-center p-2 text-sm font-mono text-xs focus:ring-2 focus:ring-blue-500 outline-none transition-shadow">
-                <button onclick="app.printSizeBarcode('${s}')" 
-                        class="p-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-600 dark:hover:bg-slate-500 text-slate-600 dark:text-slate-300 rounded-lg text-xs transition-colors">
-                    <i class="ph-bold ph-printer"></i>
-                </button>
-            </div>`;
-        });
-        perfumeContainer.innerHTML = perfumeHTML;
-    }
-},
+            this.charts = {}; // Initialize empty charts object
+            // Load data
+            this.loadFromBackend();
+            
+            // Initialize size inputs for product modal
+            this.initSizeInputs();
+            
+            // Initialize main chart
+            setTimeout(() => this.initMainChart(), 500);
+        },
+        
+        initSizeInputs: function() {
+            const sd = document.getElementById('s_shoes');
+            if (sd) {
+                sd.innerHTML = '';
+                for(let i=36; i<=45; i++) {
+                    sd.innerHTML += `<input type="number" id="sz_s_${i}" placeholder="${i}" class="border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 dark:text-white rounded-lg text-center p-2 text-sm focus:ring-2 focus:ring-orange-500 outline-none transition-shadow">`;
+                }
+            }
+            
+            const cd = document.getElementById('s_clothes');
+            if (cd) {
+                cd.innerHTML = '';
+                ['S','M','L','XL','XXL'].forEach(s => {
+                    cd.innerHTML += `<input type="number" id="sz_c_${s}" placeholder="${s}" class="border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 dark:text-white rounded-lg text-center p-2 text-sm focus:ring-2 focus:ring-orange-500 outline-none transition-shadow">`;
+                });
+            }
+            
+            const pd = document.getElementById('s_perfume');
+            if (pd) {
+                pd.innerHTML = '';
+                ['3ml','50ml','100ml'].forEach(s => {
+                    pd.innerHTML += `<input type="number" id="sz_p_${s}" placeholder="${s}" class="border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 dark:text-white rounded-lg text-center p-2 text-sm focus:ring-2 focus:ring-orange-500 outline-none transition-shadow">`;
+                });
+            }
+        },
         
 initMainChart: function() {
     const ctx = document.getElementById('mainChart');
@@ -1433,47 +1240,7 @@ initMainChart: function() {
         }
     });
 },
- // Print barcode for a specific size
-printSizeBarcode: function(size) {
-    const productId = document.getElementById('pId').value;
-    const productName = document.getElementById('pName').value;
-    const productPrice = document.getElementById('pSellPrice').value;
-    
-    // Get barcode for this size
-    let barcodeInput;
-    if (document.getElementById('s_shoes').classList.contains('hidden') === false) {
-        barcodeInput = document.getElementById(`sz_s_barcode_${size}`);
-    } else if (document.getElementById('s_clothes').classList.contains('hidden') === false) {
-        barcodeInput = document.getElementById(`sz_c_barcode_${size}`);
-    } else if (document.getElementById('s_perfume').classList.contains('hidden') === false) {
-        barcodeInput = document.getElementById(`sz_p_barcode_${size}`);
-    }
-    
-    const barcode = barcodeInput ? barcodeInput.value : '';
-    
-    if (!barcode) {
-        this.notify('الرجاء إدخال باركود للمقاس أولاً', 'error');
-        barcodeInput.focus();
-        return;
-    }
-    
-    // Store data for printing
-    this.sizePrintData = {
-        productId: productId,
-        productName: productName,
-        size: size,
-        price: productPrice,
-        barcode: barcode
-    };
-    
-    // Open print modal
-    this.prQ = 10; 
-    document.getElementById('prQty').innerText = 10;
-    document.getElementById('printModal').querySelector('h3').innerText = `طباعة باركود للمقاس ${size}`;
-    document.getElementById('prId').value = productId;
-    this.openModal('printModal');
-},
-
+        // Save to backend
         // Save to backend
 saveToBackend: async function() {
     try {
@@ -1565,16 +1332,7 @@ loadFromBackend: async function() {
         return false;
     }
 },
-// Add this function to your app object
-getCategoryName: function(catCode) {
-    const categories = {
-        'shoes': 'أحذية',
-        'clothes': 'ملابس',
-        'perfume': 'عطور',
-        'acc': 'اكسسوارات'
-    };
-    return categories[catCode] || catCode;
-},
+
 // Update your save function
 save: function() {
     this.updateStats();
@@ -1749,70 +1507,43 @@ nav: function(page) {
     
     // Destroy all charts when navigating away from chart pages
     if (page !== 'dashboard' && page !== 'analytics') {
-        // Check if function exists before calling it
-        if (typeof this.destroyAnalyticsCharts === 'function') {
-            this.destroyAnalyticsCharts();
-        }
+        this.destroyAnalyticsCharts();
     }
     
-    // Load specific page data with error handling
-    try {
-        switch(page) {
-            case 'dashboard':
-                this.updateStats();
-                setTimeout(() => {
-                    if (typeof this.initMainChart === 'function') {
-                        this.initMainChart();
-                    }
-                }, 100);
-                break;
-            case 'products':
-                setTimeout(() => {
-                    if (typeof this.renderProducts === 'function') {
-                        this.renderProducts();
-                    }
-                }, 100);
-                break;
-            case 'inventory':
-                setTimeout(() => {
-                    if (typeof this.renderInv === 'function') {
-                        this.renderInv();
-                    }
-                }, 100);
-                break;
-            case 'pos':
-                setTimeout(() => {
-                    if (typeof this.renderPOS === 'function') {
-                        this.renderPOS();
-                    }
-                }, 100);
-                break;
-            case 'analytics':
-                setTimeout(() => {
-                    if (typeof this.renderAnalytics === 'function') {
-                        this.renderAnalytics();
-                    }
-                }, 200);
-                break;
-            case 'users':
-                setTimeout(() => {
-                    if (typeof this.renderUsers === 'function') {
-                        this.renderUsers();
-                    }
-                }, 100);
-                break;
-            case 'returns':
-                setTimeout(() => {
-                    if (typeof this.renderReturnsPage === 'function') {
-                        this.renderReturnsPage();
-                    }
-                }, 100);
-                break;
-        }
-    } catch (error) {
-        console.error(`Error loading page ${page}:`, error);
-        this.notify(`خطأ في تحميل الصفحة: ${page}`, 'error');
+    // Load specific page data
+    switch(page) {
+        case 'dashboard':
+            this.updateStats();
+            setTimeout(() => this.initMainChart(), 100);
+            break;
+        case 'products':
+            setTimeout(() => this.renderProducts(), 100);
+            break;
+        case 'inventory':
+            setTimeout(() => this.renderInv(), 100);
+            break;
+        case 'pos':
+            setTimeout(() => this.renderPOS(), 100);
+            break;
+        case 'analytics':
+            setTimeout(() => this.renderAnalytics(), 200);
+            break;
+        case 'users':
+            setTimeout(() => this.renderUsers(), 100);
+            break;
+        case 'returns':
+            setTimeout(() => this.renderReturnsPage(), 100);
+            break;
     }
+},
+destroyAnalyticsCharts: function() {
+    // Destroy all charts in the registry
+    Object.keys(this.charts).forEach(chartId => {
+        if (this.charts[chartId]) {
+            this.charts[chartId].destroy();
+        }
+    });
+    this.charts = {}; // Clear the registry
 },
         generateBar: function() {
             const len = Math.floor(Math.random() * 2) + 11;
@@ -1858,242 +1589,183 @@ nav: function(page) {
             }
         },
 
-        // Update saveProd to save size barcodes
-saveProd: function() {
-    const id = document.getElementById('pId').value;
-    const cat = document.getElementById('pCat').value;
-    let sizes = {}, sizeBarcodes = {}, stock = 0;
-    
-    if(cat === 'shoes') {
-        for(let i=38; i<=47; i++) {
-            const qty = parseInt(document.getElementById(`sz_s_qty_${i}`).value) || 0;
-            const barcode = document.getElementById(`sz_s_barcode_${i}`).value || '';
-            if(qty > 0) { 
-                sizes[i] = qty; 
-                stock += qty;
-                if (barcode) sizeBarcodes[i] = barcode;
+        // Enhanced saveProd function with buy price
+        saveProd: function() {
+            const id = document.getElementById('pId').value;
+            const cat = document.getElementById('pCat').value;
+            let sizes = {}, stock = 0;
+            
+            if(cat === 'shoes') {
+                for(let i=36; i<=45; i++) {
+                    const v = parseInt(document.getElementById(`sz_s_${i}`).value) || 0;
+                    if(v>0) { sizes[i]=v; stock+=v; }
+                }
+            } else if(cat === 'clothes') {
+                ['S','M','L','XL','XXL'].forEach(s => {
+                    const v = parseInt(document.getElementById(`sz_c_${s}`).value) || 0;
+                    if(v>0) { sizes[s]=v; stock+=v; }
+                });
+            } else if(cat === 'perfume') {
+                ['3ml','50ml','100ml'].forEach(s => {
+                    const v = parseInt(document.getElementById(`sz_p_${s}`).value) || 0;
+                    if(v>0) { sizes[s]=v; stock+=v; }
+                });
+            } else { 
+                stock = parseInt(document.getElementById('pStock').value) || 0; 
             }
-        }
-    } else if(cat === 'clothes') {
-        ['S','M','L','XL','XXL'].forEach(s => {
-            const qty = parseInt(document.getElementById(`sz_c_qty_${s}`).value) || 0;
-            const barcode = document.getElementById(`sz_c_barcode_${s}`).value || '';
-            if(qty > 0) { 
-                sizes[s] = qty; 
-                stock += qty;
-                if (barcode) sizeBarcodes[s] = barcode;
+            
+            const sellPrice = parseFloat(document.getElementById('pSellPrice').value) || 0;
+            const buyPrice = parseFloat(document.getElementById('pBuyPrice').value) || 0;
+            const profit = sellPrice - buyPrice;
+            const margin = buyPrice > 0 ? ((profit / buyPrice) * 100).toFixed(1) : 0;
+            
+            const prod = {
+                id: id || Date.now().toString(),
+                name: document.getElementById('pName').value,
+                sellPrice: sellPrice,
+                buyPrice: buyPrice,
+                profit: profit,
+                margin: margin,
+                cat: cat,
+                bar: document.getElementById('pBar').value,
+                img: document.getElementById('pImgPrev').src,
+                sizes: sizes,
+                stock: stock,
+                price: sellPrice // For backward compatibility
+            };
+            
+            if(!prod.name || !prod.sellPrice || !prod.bar) { 
+                this.notify('يرجى إدخال البيانات الأساسية والباركود', 'error'); 
+                return; 
             }
-        });
-    } else if(cat === 'perfume') {
-        ['3ml','50ml','100ml'].forEach(s => {
-            const qty = parseInt(document.getElementById(`sz_p_qty_${s}`).value) || 0;
-            const barcode = document.getElementById(`sz_p_barcode_${s}`).value || '';
-            if(qty > 0) { 
-                sizes[s] = qty; 
-                stock += qty;
-                if (barcode) sizeBarcodes[s] = barcode;
+            
+            if(id) {
+                const index = this.data.products.findIndex(x => x.id === id);
+                if(index > -1) this.data.products[index] = prod;
+            } else {
+                this.data.products.push(prod);
             }
-        });
-    } else { 
-        stock = parseInt(document.getElementById('pStock').value) || 0; 
-    }
-    
-    const sellPrice = parseFloat(document.getElementById('pSellPrice').value) || 0;
-    const buyPrice = parseFloat(document.getElementById('pBuyPrice').value) || 0;
-    const profit = sellPrice - buyPrice;
-    const margin = buyPrice > 0 ? ((profit / buyPrice) * 100).toFixed(1) : 0;
-    
-    const prod = {
-        id: id || Date.now().toString(),
-        name: document.getElementById('pName').value,
-        sellPrice: sellPrice,
-        buyPrice: buyPrice,
-        profit: profit,
-        margin: margin,
-        cat: cat,
-        bar: document.getElementById('pBar').value,
-        img: document.getElementById('pImgPrev').src,
-        sizes: sizes,
-        sizeBarcodes: sizeBarcodes, // NEW: Save size barcodes
-        stock: stock,
-        price: sellPrice // For backward compatibility
-    };
-    
-    if(!prod.name || !prod.sellPrice || !prod.bar) { 
-        this.notify('يرجى إدخال البيانات الأساسية والباركود', 'error'); 
-        return; 
-    }
-    
-    if(id) {
-        const index = this.data.products.findIndex(x => x.id === id);
-        if(index > -1) this.data.products[index] = prod;
-    } else {
-        this.data.products.push(prod);
-    }
-    
-    this.save();
-    this.closeModal('prodModal');
-    this.renderProducts();
-    this.notify(id ? 'تم تعديل المنتج' : 'تمت إضافة المنتج بنجاح');
-},
-
+            
+            this.save();
+            this.closeModal('prodModal');
+            this.renderProducts();
+            this.notify(id ? 'تم تعديل المنتج' : 'تمت إضافة المنتج بنجاح');
+        },
+        
         renderProducts: function() {
-    const g = document.getElementById('productGrid');
-    if (!g) return;
-    
-    const s = document.getElementById('searchProd').value.toLowerCase();
-    const filtered = this.filterCat ? this.data.products.filter(p=>p.cat===this.filterCat) : this.data.products;
-    
-    const productsToShow = filtered.filter(p => p.name.toLowerCase().includes(s));
-    
-    g.innerHTML = productsToShow.map((p, i) => {
-        const margin = p.buyPrice ? (((p.sellPrice - p.buyPrice) / p.buyPrice) * 100).toFixed(1) : 0;
-        let marginBadge = '';
-        
-        if (p.buyPrice && p.buyPrice > 0) {
-            const marginClass = margin > 20 ? 'bg-green-100 text-green-800 border-green-200' :
-                               margin > 10 ? 'bg-orange-100 text-orange-800 border-orange-200' :
-                               'bg-red-100 text-red-800 border-red-200';
-            marginBadge = `<span class="text-[10px] font-bold px-2 py-1 rounded-md border ${marginClass}">${margin}%</span>`;
-        }
-        
-        const placeholderImage = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiNGNUY2RjciLz48cGF0aCBkPSJNNzAgODBMOTAgNjBMMTIwIDkwTDE1MCA2MEwxNzAgODBMMTQwIDEyMEwxNzAgMTYwTDE1MCAxODBMMTIwIDE1MEw5MCAxODBMNzAgMTYwTDEwMCAxMjBMNzAgODBaIiBmaWxsPSIjRkRCQjQwIi8+PC9zdmc+';
-        
-        // Check if product has sizes
-        const hasSizes = p.cat === 'shoes' || p.cat === 'clothes' || p.cat === 'perfume';
-        
-        // Generate size buttons for barcode printing
-        let sizeButtons = '';
-        if (hasSizes && Object.keys(p.sizes).length > 0) {
-            sizeButtons = Object.keys(p.sizes).map(size => {
-                if (p.sizes[size] > 0) {
-                    return `<button onclick="app.prepSizePrint('${p.id}', '${size}')" class="text-[10px] bg-blue-100 hover:bg-blue-200 dark:bg-blue-900/30 dark:hover:bg-blue-900/50 text-blue-700 dark:text-blue-300 px-2 py-1 rounded border border-blue-200 dark:border-blue-700">
-                        ${size}: ${p.sizes[size]}
-                    </button>`;
+            const g = document.getElementById('productGrid');
+            if (!g) return;
+            
+            const s = document.getElementById('searchProd').value.toLowerCase();
+            const filtered = this.filterCat ? this.data.products.filter(p=>p.cat===this.filterCat) : this.data.products;
+            
+            const productsToShow = filtered.filter(p => p.name.toLowerCase().includes(s));
+            
+            g.innerHTML = productsToShow.map((p, i) => {
+                const margin = p.buyPrice ? (((p.sellPrice - p.buyPrice) / p.buyPrice) * 100).toFixed(1) : 0;
+                let marginBadge = '';
+                
+                if (p.buyPrice && p.buyPrice > 0) {
+                    const marginClass = margin > 20 ? 'bg-green-100 text-green-800 border-green-200' :
+                                       margin > 10 ? 'bg-orange-100 text-orange-800 border-orange-200' :
+                                       'bg-red-100 text-red-800 border-red-200';
+                    marginBadge = `<span class="text-[10px] font-bold px-2 py-1 rounded-md border ${marginClass}">${margin}%</span>`;
                 }
-                return '';
+                
+                const placeholderImage = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiNGNUY2RjciLz48cGF0aCBkPSJNNzAgODBMOTAgNjBMMTIwIDkwTDE1MCA2MEwxNzAgODBMMTQwIDEyMEwxNzAgMTYwTDE1MCAxODBMMTIwIDE1MEw5MCAxODBMNzAgMTYwTDEwMCAxMjBMNzAgODBaIiBmaWxsPSIjRkRCQjQwIi8+PC9zdmc+';
+                
+                return `
+                <div class="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 dark:border-slate-700 group stagger-anim" style="animation-delay: ${i*0.05}s">
+                    <div class="h-48 bg-slate-50 dark:bg-slate-700 relative overflow-hidden">
+                        <img src="${p.img}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.onerror=null; this.src='${placeholderImage}'">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all flex flex-col items-center justify-center gap-2 backdrop-blur-sm">
+                            <button onclick="app.prepPrint('${p.id}')" class="w-40 bg-white text-slate-800 px-4 py-2 rounded-lg font-bold text-xs shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform flex items-center justify-center gap-2">
+                                <i class="ph-bold ph-barcode"></i> طباعة باركود
+                            </button>
+                            <div class="flex gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform delay-75">
+                                <button onclick="app.editProd('${p.id}')" class="bg-blue-600 text-white p-2.5 rounded-lg font-bold shadow-lg hover:bg-blue-700">
+                                    <i class="ph-bold ph-pencil-simple"></i>
+                                </button>
+                                <button onclick="app.deleteProd('${p.id}')" class="bg-red-600 text-white p-2.5 rounded-lg font-bold shadow-lg hover:bg-red-700">
+                                    <i class="ph-bold ph-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <span class="absolute top-3 left-3 bg-white/90 backdrop-blur px-2 py-1 rounded-lg text-[10px] font-bold uppercase tracking-widest text-slate-600 shadow-sm">${p.cat}</span>
+                    </div>
+                    <div class="p-5">
+                        <h4 class="font-bold text-lg text-slate-800 dark:text-white mb-1 truncate">${p.name}</h4>
+                        <div class="flex justify-between items-center mt-2 mb-4">
+                            ${marginBadge}
+                            <span class="text-xs text-slate-400 font-bold bg-slate-100 dark:bg-slate-700 px-2 py-1 rounded-md">Stock: ${p.stock}</span>
+                        </div>
+                        <div class="flex justify-between items-end">
+                            <div>
+                                <div class="text-xs text-red-500 font-bold">شراء: ${p.buyPrice ? p.buyPrice.toLocaleString() : '-'}</div>
+                                <div class="text-orange-600 dark:text-orange-400 font-black text-xl">بيع: ${p.sellPrice.toLocaleString()}</div>
+                            </div>
+                            <div class="text-xs text-green-600 font-bold">ربح: ${p.profit ? p.profit.toLocaleString() : '-'}</div>
+                        </div>
+                    </div>
+                </div>
+                `;
             }).join('');
-        }
-        
-        return `
-        <div class="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 dark:border-slate-700 group stagger-anim" style="animation-delay: ${i*0.05}s">
-            <div class="h-48 bg-slate-50 dark:bg-slate-700 relative overflow-hidden">
-                <img src="${p.img}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.onerror=null; this.src='${placeholderImage}'">
-                <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all flex flex-col items-center justify-center gap-2 backdrop-blur-sm">
-                    <button onclick="app.prepPrint('${p.id}')" class="w-40 bg-white text-slate-800 px-4 py-2 rounded-lg font-bold text-xs shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform flex items-center justify-center gap-2">
-                        <i class="ph-bold ph-barcode"></i> طباعة باركود
-                    </button>
-                    <div class="flex gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform delay-75">
-                        <button onclick="app.editProd('${p.id}')" class="bg-blue-600 text-white p-2.5 rounded-lg font-bold shadow-lg hover:bg-blue-700">
-                            <i class="ph-bold ph-pencil-simple"></i>
-                        </button>
-                        <button onclick="app.deleteProd('${p.id}')" class="bg-red-600 text-white p-2.5 rounded-lg font-bold shadow-lg hover:bg-red-700">
-                            <i class="ph-bold ph-trash"></i>
-                        </button>
-                    </div>
-                </div>
-                <span class="absolute top-3 left-3 bg-white/90 backdrop-blur px-2 py-1 rounded-lg text-[10px] font-bold uppercase tracking-widest text-slate-600 shadow-sm">${p.cat}</span>
-            </div>
-            <div class="p-5">
-                <h4 class="font-bold text-lg text-slate-800 dark:text-white mb-1 truncate">${p.name}</h4>
-                
-                ${hasSizes && sizeButtons ? `
-                <div class="mb-3">
-                    <div class="text-xs text-slate-500 mb-2 font-bold">طباعة باركود حسب المقاس:</div>
-                    <div class="flex flex-wrap gap-1">
-                        ${sizeButtons}
-                    </div>
-                </div>
-                ` : ''}
-                
-                <div class="flex justify-between items-center mt-2 mb-4">
-                    ${marginBadge}
-                    <span class="text-xs text-slate-400 font-bold bg-slate-100 dark:bg-slate-700 px-2 py-1 rounded-md">Stock: ${p.stock}</span>
-                </div>
-                <div class="flex justify-between items-end">
-                    <div>
-                        <div class="text-xs text-red-500 font-bold">شراء: ${p.buyPrice ? p.buyPrice.toLocaleString() : '-'}</div>
-                        <div class="text-orange-600 dark:text-orange-400 font-black text-xl">بيع: ${p.sellPrice.toLocaleString()}</div>
-                    </div>
-                    <div class="text-xs text-green-600 font-bold">ربح: ${p.profit ? p.profit.toLocaleString() : '-'}</div>
-                </div>
-            </div>
-        </div>
-        `;
-    }).join('');
-    
-    // If no products, show message
-    if (productsToShow.length === 0) {
-        g.innerHTML = '<div class="col-span-full text-center py-12 text-slate-400"><i class="ph ph-package text-4xl mb-3"></i><p>لا توجد منتجات</p></div>';
-    }
-},
-       // Update editProd to load size barcodes
-editProd: function(id) {
-    const p = this.data.products.find(x => x.id === id);
-    if(!p) return;
-    
-    this.openModal('prodModal');
-    document.getElementById('prodModalTitle').innerText = 'تعديل منتج';
-    document.getElementById('pId').value = p.id;
-    document.getElementById('pName').value = p.name;
-    document.getElementById('pSellPrice').value = p.sellPrice || p.price;
-    document.getElementById('pBuyPrice').value = p.buyPrice || '';
-    document.getElementById('pCat').value = p.cat;
-    document.getElementById('pBar').value = p.bar;
-    
-    // Handle image
-    const imgPrev = document.getElementById('pImgPrev');
-    if (p.img && p.img !== 'undefined') {
-        imgPrev.src = p.img;
-        imgPrev.classList.remove('hidden');
-    } else {
-        imgPrev.classList.add('hidden');
-    }
-    
-    this.calcProfit();
-    this.toggleSizes();
-    
-    // Clear all size inputs first
-    document.querySelectorAll('#sizeBox input').forEach(input => {
-        if (input.type === 'number') input.value = '';
-        if (input.type === 'text' && input.id.includes('barcode')) input.value = '';
-    });
-    
-    if(p.cat === 'shoes') {
-        // Populate shoe sizes (38-47)
-        Object.entries(p.sizes).forEach(([sz, val]) => {
-            const sizeNum = parseInt(sz);
-            if (sizeNum >= 38 && sizeNum <= 47) {
-                const qtyEl = document.getElementById(`sz_s_qty_${sz}`);
-                const barcodeEl = document.getElementById(`sz_s_barcode_${sz}`);
-                if(qtyEl) qtyEl.value = val;
-                if(barcodeEl && p.sizeBarcodes && p.sizeBarcodes[sz]) {
-                    barcodeEl.value = p.sizeBarcodes[sz];
-                }
+            
+            // If no products, show message
+            if (productsToShow.length === 0) {
+                g.innerHTML = '<div class="col-span-full text-center py-12 text-slate-400"><i class="ph ph-package text-4xl mb-3"></i><p>لا توجد منتجات</p></div>';
             }
-        });
-    } else if(p.cat === 'clothes') {
-        Object.entries(p.sizes).forEach(([sz, val]) => {
-            const qtyEl = document.getElementById(`sz_c_qty_${sz}`);
-            const barcodeEl = document.getElementById(`sz_c_barcode_${sz}`);
-            if(qtyEl) qtyEl.value = val;
-            if(barcodeEl && p.sizeBarcodes && p.sizeBarcodes[sz]) {
-                barcodeEl.value = p.sizeBarcodes[sz];
+        },
+
+        editProd: function(id) {
+            const p = this.data.products.find(x => x.id === id);
+            if(!p) return;
+            
+            this.openModal('prodModal');
+            document.getElementById('prodModalTitle').innerText = 'تعديل منتج';
+            document.getElementById('pId').value = p.id;
+            document.getElementById('pName').value = p.name;
+            document.getElementById('pSellPrice').value = p.sellPrice || p.price;
+            document.getElementById('pBuyPrice').value = p.buyPrice || '';
+            document.getElementById('pCat').value = p.cat;
+            document.getElementById('pBar').value = p.bar;
+            
+            // Handle image
+            const imgPrev = document.getElementById('pImgPrev');
+            if (p.img && p.img !== 'undefined') {
+                imgPrev.src = p.img;
+                imgPrev.classList.remove('hidden');
+            } else {
+                imgPrev.classList.add('hidden');
             }
-        });
-    } else if(p.cat === 'perfume') {
-        Object.entries(p.sizes).forEach(([sz, val]) => {
-            const qtyEl = document.getElementById(`sz_p_qty_${sz}`);
-            const barcodeEl = document.getElementById(`sz_p_barcode_${sz}`);
-            if(qtyEl) qtyEl.value = val;
-            if(barcodeEl && p.sizeBarcodes && p.sizeBarcodes[sz]) {
-                barcodeEl.value = p.sizeBarcodes[sz];
+            
+            this.calcProfit();
+            this.toggleSizes();
+            
+            // Clear all size inputs first
+            document.querySelectorAll('#sizeBox input').forEach(input => {
+                input.value = '';
+            });
+            
+            if(p.cat === 'shoes') {
+                Object.entries(p.sizes).forEach(([sz, val]) => {
+                    const el = document.getElementById(`sz_s_${sz}`);
+                    if(el) el.value = val;
+                });
+            } else if(p.cat === 'clothes') {
+                Object.entries(p.sizes).forEach(([sz, val]) => {
+                    const el = document.getElementById(`sz_c_${sz}`);
+                    if(el) el.value = val;
+                });
+            } else if(p.cat === 'perfume') {
+                Object.entries(p.sizes).forEach(([sz, val]) => {
+                    const el = document.getElementById(`sz_p_${sz}`);
+                    if(el) el.value = val;
+                });
+            } else {
+                document.getElementById('pStock').value = p.stock || 0;
             }
-        });
-    } else {
-        document.getElementById('pStock').value = p.stock || 0;
-    }
-},
+        },
 
         deleteProd: function(id) {
             if(confirm('هل أنت متأكد من حذف هذا المنتج نهائياً؟')) {
@@ -2703,10 +2375,7 @@ renderAnalytics: function() {
     });
     
     const bestCategory = Object.entries(categoryProfits).reduce((a, b) => b[1] > a[1] ? b : a, ['-', 0]);
-    
-    // Use getCategoryName function
-    const categoryName = this.getCategoryName(bestCategory[0]);
-    document.getElementById('analyticsBestCategory').innerText = categoryName;
+    document.getElementById('analyticsBestCategory').innerText = this.getCategoryName(bestCategory[0]);
     document.getElementById('analyticsBestCategoryProfit').innerText = `ربح: ${bestCategory[1].toLocaleString()}`;
     
     // Count low profit products
@@ -2917,117 +2586,6 @@ renderAnalyticsCharts: function() {
         });
     }
 },
-        destroyAnalyticsCharts: function() {
-    // Destroy all charts in the registry
-    Object.keys(this.charts).forEach(chartId => {
-        if (this.charts[chartId]) {
-            console.log(`Destroying chart: ${chartId}`);
-            this.charts[chartId].destroy();
-            delete this.charts[chartId];
-        }
-    });
-    console.log('All charts destroyed');
-},
-        renderTopProfitableProducts: function() {
-    const container = document.getElementById('topProfitableProducts');
-    if (!container) return;
-    
-    // Calculate profitability for each product
-    const productProfits = {};
-    
-    this.data.sales.forEach(sale => {
-        sale.items.forEach(item => {
-            const product = this.data.products.find(p => p.id === item.id);
-            if (product && product.buyPrice) {
-                if (!productProfits[product.id]) {
-                    productProfits[product.id] = {
-                        name: product.name,
-                        img: product.img,
-                        totalProfit: 0,
-                        totalRevenue: 0,
-                        totalSold: 0
-                    };
-                }
-                const profit = (item.price - product.buyPrice) * item.qty;
-                productProfits[product.id].totalProfit += profit;
-                productProfits[product.id].totalRevenue += item.price * item.qty;
-                productProfits[product.id].totalSold += item.qty;
-            }
-        });
-    });
-    
-    // Sort by profit (highest first) and take top 5
-    const topProducts = Object.values(productProfits)
-        .sort((a, b) => b.totalProfit - a.totalProfit)
-        .slice(0, 5);
-    
-    if (topProducts.length === 0) {
-        container.innerHTML = '<div class="text-center py-8 text-slate-400"><i class="ph ph-chart-line text-2xl mb-2"></i><p>لا توجد بيانات للأرباح</p></div>';
-        return;
-    }
-    
-    container.innerHTML = topProducts.map((product, index) => `
-        <div class="flex items-center gap-4 p-4 bg-slate-50 dark:bg-slate-700 rounded-2xl border border-slate-100 dark:border-slate-600 hover:border-orange-500 transition-all">
-            <div class="w-12 h-12 rounded-xl flex items-center justify-center text-white font-black text-xl shadow-lg ${index === 0 ? 'bg-yellow-500' : index === 1 ? 'bg-slate-400' : index === 2 ? 'bg-orange-500' : 'bg-blue-500'}">
-                ${index + 1}
-            </div>
-            <img src="${product.img}" class="w-12 h-12 rounded-xl object-cover bg-white" onerror="this.style.display='none'">
-            <div class="flex-1">
-                <h4 class="font-bold text-slate-800 dark:text-white text-sm">${product.name}</h4>
-                <p class="text-xs text-slate-500 dark:text-slate-400">مبيعات: ${product.totalSold} قطعة</p>
-            </div>
-            <div class="text-right">
-                <div class="font-black text-green-600 dark:text-green-400 text-lg">${product.totalProfit.toLocaleString()}</div>
-                <div class="text-xs text-slate-400">ربح</div>
-            </div>
-        </div>
-    `).join('');
-},
-
-renderRecentSalesWithProfit: function() {
-    const container = document.getElementById('recentSalesWithProfit');
-    if (!container) return;
-    
-    // Get recent sales (last 8)
-    const recentSales = this.data.sales.slice().reverse().slice(0, 8);
-    
-    if (recentSales.length === 0) {
-        container.innerHTML = '<div class="text-center py-8 text-slate-400"><i class="ph ph-clock-clockwise text-2xl mb-2"></i><p>لا توجد عمليات بيع حديثة</p></div>';
-        return;
-    }
-    
-    container.innerHTML = recentSales.map(sale => {
-        // Calculate profit for this sale
-        let saleProfit = 0;
-        sale.items.forEach(item => {
-            const product = this.data.products.find(p => p.id === item.id);
-            if (product && product.buyPrice) {
-                saleProfit += (item.price - product.buyPrice) * item.qty;
-            }
-        });
-        
-        const profitColor = saleProfit > 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400';
-        
-        return `
-        <div class="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-700 rounded-xl border border-slate-100 dark:border-slate-600">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 ${saleProfit > 0 ? 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400' : 'bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400'} rounded-xl flex items-center justify-center">
-                    <i class="ph-bold ${saleProfit > 0 ? 'ph-arrow-up' : 'ph-arrow-down'} text-xl"></i>
-                </div>
-                <div>
-                    <p class="font-bold text-sm text-slate-800 dark:text-white">${sale.items.length} منتج</p>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">${sale.date} • ${sale.seller}</p>
-                </div>
-            </div>
-            <div class="text-right">
-                <div class="font-black ${profitColor}">${sale.total.toLocaleString()}</div>
-                <div class="text-xs text-slate-400">${saleProfit > 0 ? '+' : ''}${saleProfit.toLocaleString()} ربح</div>
-            </div>
-        </div>
-        `;
-    }).join('');
-},
-        
         openModal: function(id) {
             const m = document.getElementById(id);
             if (!m) return;
@@ -3069,14 +2627,13 @@ renderRecentSalesWithProfit: function() {
             setTimeout(() => m.classList.add('hidden'), 300);
         },
         
-// Toggle size sections
-toggleSizes: function() {
-    const c = document.getElementById('pCat').value;
-    document.getElementById('s_shoes').classList.toggle('hidden', c!=='shoes');
-    document.getElementById('s_clothes').classList.toggle('hidden', c!=='clothes');
-    document.getElementById('s_perfume').classList.toggle('hidden', c!=='perfume');
-    document.getElementById('pStock').classList.toggle('hidden', c!=='acc');
-},
+        toggleSizes: function() {
+            const c = document.getElementById('pCat').value;
+            document.getElementById('s_shoes').classList.toggle('hidden', c!=='shoes');
+            document.getElementById('s_clothes').classList.toggle('hidden', c!=='clothes');
+            document.getElementById('s_perfume').classList.toggle('hidden', c!=='perfume');
+            document.getElementById('pStock').classList.toggle('hidden', c!=='acc');
+        },
         
         prevImg: function(i) {
             if(i.files[0]) {
@@ -3103,41 +2660,6 @@ toggleSizes: function() {
             this.prQ = Math.max(1, (this.prQ || 10) + n); 
             document.getElementById('prQty').innerText = this.prQ; 
         },
-        // Function for size-specific barcode printing
-prepSizePrint: function(id, size) {
-    const p = this.data.products.find(x=>x.id===id);
-    if (!p) return;
-    
-    // Generate a unique barcode for this size
-    // We'll combine product barcode with size code
-    const sizeBarcode = this.generateSizeBarcode(p.bar, size);
-    
-    // Store data for printing
-    this.sizePrintData = {
-        id: id,
-        name: p.name,
-        size: size,
-        price: p.sellPrice,
-        baseBarcode: p.bar,
-        sizeBarcode: sizeBarcode
-    };
-    
-    this.prQ = 10; 
-    document.getElementById('prQty').innerText = 10;
-    
-    // Update modal for size printing
-    document.getElementById('printModal').querySelector('h3').innerText = `طباعة باركود للمقاس ${size}`;
-    document.getElementById('prId').value = id;
-    this.openModal('printModal');
-},
-
-// Generate unique barcode for size
-generateSizeBarcode: function(baseBarcode, size) {
-    // Create a unique barcode by combining base barcode with size
-    // You can customize this logic based on your needs
-    const sizeCode = size.toString().padStart(2, '0');
-    return baseBarcode + sizeCode;
-},
         
 doPrint: function() {
     const id = document.getElementById('prId').value;
@@ -3147,39 +2669,20 @@ doPrint: function() {
     const a = document.getElementById('printArea'); 
     a.innerHTML = '';
     
-    // Check if we're printing size-specific barcode
-    const isSizePrint = this.sizePrintData && this.sizePrintData.id === id;
-    
     for(let i = 0; i < this.prQ; i++) {
-        let barcodeToPrint = p.bar;
-        let displayText = p.name;
-        let priceText = p.sellPrice.toLocaleString() + ' دينار';
-        
-        if (isSizePrint) {
-            barcodeToPrint = this.sizePrintData.sizeBarcode;
-            displayText = `${p.name} - المقاس: ${this.sizePrintData.size}`;
-            priceText = p.sellPrice.toLocaleString() + ' دينار';
-        }
-        
         a.innerHTML += `
             <div class="print-item">
-                <div style="font-weight:bold;font-size:12px;margin-bottom:5px;text-align:center">${displayText}</div>
+                <div style="font-weight:bold;font-size:12px;margin-bottom:5px;text-align:center">${p.name}</div>
                 <svg id="pb_${i}" class="print-bar"></svg>
-                <div style="font-weight:900;font-size:14px;text-align:center;margin-top:5px">${priceText}</div>
-                ${isSizePrint ? `<div style="font-size:10px;text-align:center;color:#666;">المقاس: ${this.sizePrintData.size}</div>` : ''}
+                <div style="font-weight:900;font-size:14px;text-align:center;margin-top:5px">${p.sellPrice.toLocaleString()} دينار</div>
             </div>`;
     }
     
     setTimeout(() => { 
         for(let i = 0; i < this.prQ; i++) {
             try {
-                let barcodeToPrint = p.bar;
-                if (this.sizePrintData && this.sizePrintData.id === id) {
-                    barcodeToPrint = this.sizePrintData.sizeBarcode;
-                }
-                
                 // Create barcode with number displayed
-                JsBarcode(`#pb_${i}`, barcodeToPrint, { 
+                JsBarcode(`#pb_${i}`, p.bar, { 
                     format: "CODE128", 
                     width: 2, 
                     height: 35, 
@@ -3194,10 +2697,6 @@ doPrint: function() {
         setTimeout(() => { 
             window.print(); 
             this.closeModal('printModal'); 
-            // Clear size print data after printing
-            if (this.sizePrintData) {
-                this.sizePrintData = null;
-            }
         }, 500);
     }, 100);
 },
@@ -3229,272 +2728,103 @@ doPrint: function() {
         // POS Search Mode
         posSearchMode: 'name',
 
-       // Update setPOSSearchMode to only show barcode mode (remove name search)
-setPOSSearchMode: function(mode) {
-    this.posSearchMode = 'barcode'; // Always barcode now
-    
-    const input = document.getElementById('posSearch');
-    const icon = document.getElementById('posSearchIcon');
-    
-    input.placeholder = "امسح الباركود أو اكتبه واضغط Enter...";
-    icon.className = "ph ph-barcode absolute top-1/2 right-4 -translate-y-1/2 text-slate-400";
-    input.type = "text";
-    
-    input.value = '';
-    input.focus();
-    
-    // Hide the search mode buttons since we only have barcode now
-    document.querySelectorAll('.search-mode-btn').forEach(btn => {
-        btn.style.display = 'none';
-    });
-},
-
-// Enhanced searchByBarcode function (looks in size barcodes)
-searchByBarcode: function(barcode) {
-    if (!barcode) return;
-    
-    const normalizedBarcode = barcode.trim();
-    
-    // Look for product with this barcode in sizeBarcodes
-    let foundProduct = null;
-    let foundSize = null;
-    
-    for (const product of this.data.products) {
-        if (product.stock <= 0) continue; // Skip out of stock
-        
-        // Check if product has size barcodes
-        if (product.sizeBarcodes) {
-            for (const [size, sizeBarcode] of Object.entries(product.sizeBarcodes)) {
-                if (sizeBarcode && sizeBarcode.toString() === normalizedBarcode) {
-                    // Check if this size has stock
-                    if (product.sizes && product.sizes[size] > 0) {
-                        foundProduct = product;
-                        foundSize = size;
-                        break;
-                    }
-                }
-            }
-        }
-        
-        // Also check accessories barcode (if exists)
-        if (product.cat === 'acc' && product.accBarcode && product.accBarcode === normalizedBarcode) {
-            if (product.stock > 0) {
-                foundProduct = product;
-                foundSize = null; // Accessories don't have sizes
-                break;
-            }
-        }
-        
-        if (foundProduct) break;
-    }
-    
-    if (foundProduct) {
-        this.notify(`✓ تم العثور على: ${foundProduct.name}${foundSize ? ` (المقاس: ${foundSize})` : ''}`, 'success');
-        
-        // Add to cart
-        if (foundProduct.cat === 'acc') {
-            // Accessories - no size selection needed
-            this.addCart(foundProduct.id, null);
-        } else if (foundSize) {
-            // Found specific size via barcode - add directly
-            this.addCart(foundProduct.id, foundSize);
-        } else if (foundProduct.sizes && Object.keys(foundProduct.sizes).length > 0) {
-            // Product has sizes but barcode wasn't size-specific, show size selection
-            this.showSizeSelection(foundProduct.id);
-        } else {
-            // Product without sizes
-            this.addCart(foundProduct.id, null);
-        }
-        
-        // Clear input
-        document.getElementById('posSearch').value = '';
-    } else {
-        this.notify('✗ المنتج غير موجود أو نفذ من المخزون', 'error');
-        
-        // Visual feedback
-        const input = document.getElementById('posSearch');
-        input.classList.add('ring-2', 'ring-red-500');
-        setTimeout(() => input.classList.remove('ring-2', 'ring-red-500'), 500);
-    }
-},
-
-// Helper function to show size selection
-showSizeSelection: function(productId) {
-    const p = this.data.products.find(x => x.id === productId);
-    if(!p) return;
-    
-    const d = document.getElementById('sizeOpts'); 
-    d.innerHTML='';
-    
-    Object.keys(p.sizes).forEach(s => {
-        if (p.sizes[s] > 0) {
-            d.innerHTML += `<button onclick="app.addCart('${productId}','${s}');app.closeModal('sizeModal')" class="bg-orange-50 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 px-5 py-2 rounded-xl font-bold hover:bg-orange-600 hover:text-white transition-all shadow-sm border border-orange-100 dark:border-orange-800">${s}</button>`;
-        }
-    });
-    
-    if (d.innerHTML === '') {
-        this.notify('لا توجد أحجام متوفرة لهذا المنتج', 'error');
-        return;
-    }
-    
-    this.openModal('sizeModal');
-},
-    }; // End of app object
-// Handle barcode search in returns
-handleRetBarcodeSearch: function(e) {
-    if (e.key === 'Enter') {
-        e.preventDefault();
-        const barcode = document.getElementById('retSearch').value.trim();
-        
-        if (barcode) {
-            this.searchRetByBarcode(barcode);
-            document.getElementById('retSearch').value = '';
-        }
-    }
-},
-
-// Search for product by barcode in returns
-searchRetByBarcode: function(barcode) {
-    if (!barcode) return;
-    
-    const normalizedBarcode = barcode.trim();
-    
-    // Look for product with this barcode in sizeBarcodes
-    let foundProduct = null;
-    let foundSize = null;
-    
-    for (const product of this.data.products) {
-        // Check if product has size barcodes
-        if (product.sizeBarcodes) {
-            for (const [size, sizeBarcode] of Object.entries(product.sizeBarcodes)) {
-                if (sizeBarcode && sizeBarcode.toString() === normalizedBarcode) {
-                    // Check if this size exists (even if 0 stock for returns)
-                    if (product.sizes && product.sizes[size] !== undefined) {
-                        foundProduct = product;
-                        foundSize = size;
-                        break;
-                    }
-                }
-            }
-        }
-        
-        // Also check accessories barcode
-        if (product.cat === 'acc' && product.accBarcode && product.accBarcode === normalizedBarcode) {
-            foundProduct = product;
-            foundSize = null;
-            break;
-        }
-        
-        if (foundProduct) break;
-    }
-    
-    if (foundProduct) {
-        this.notify(`✓ تم العثور على: ${foundProduct.name}${foundSize ? ` (المقاس: ${foundSize})` : ''}`, 'success');
-        
-        // Add to return cart
-        if (foundSize !== null) {
-            this.addRetItem(foundProduct.id, foundSize);
-        } else {
-            this.addRetItem(foundProduct.id, null);
-        }
-    } else {
-        this.notify('✗ المنتج غير موجود في النظام', 'error');
-        
-        // Visual feedback
-        const input = document.getElementById('retSearch');
-        input.classList.add('ring-2', 'ring-red-500');
-        setTimeout(() => input.classList.remove('ring-2', 'ring-red-500'), 500);
-    }
-},
-
-// Update addRetItem to handle size-specific returns
-addRetItem: function(id, sz) {
-    const p = this.data.products.find(x => x.id === id);
-    const ex = this.data.returnCart.find(c => c.id === id && c.size === sz);
-    
-    if(ex) {
-        ex.qty++;
-    } else {
-        this.data.returnCart.push({ 
-            id, 
-            name: p.name, 
-            img: p.img, 
-            size: sz, 
-            qty: 1,
-            sizeBarcode: sz && p.sizeBarcodes ? p.sizeBarcodes[sz] : null
-        });
-    }
-    this.renderRetCart();
-},
-// ========== EVENT LISTENERS ==========
-document.addEventListener('DOMContentLoaded', function() {
-    // Theme toggle button
-    const themeBtn = document.getElementById('themeBtn');
-    if (themeBtn) {
-        themeBtn.addEventListener('click', function() {
-            if (window.app && window.app.toggleTheme) {
-                window.app.toggleTheme();
+        setPOSSearchMode: function(mode) {
+            this.posSearchMode = mode;
+            const btnName = document.getElementById('btnSearchName');
+            const btnBarcode = document.getElementById('btnSearchBarcode');
+            const input = document.getElementById('posSearch');
+            const icon = document.getElementById('posSearchIcon');
+            
+            if (mode === 'name') {
+                btnName.className = "search-mode-btn flex-1 px-4 py-3 rounded-xl font-bold bg-orange-600 text-white shadow-lg transition-all btn-press flex items-center justify-center gap-2";
+                btnBarcode.className = "search-mode-btn flex-1 px-4 py-3 rounded-xl font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 shadow-sm transition-all btn-press flex items-center justify-center gap-2";
+                input.placeholder = "بحث بالاسم...";
+                icon.className = "ph ph-magnifying-glass absolute top-1/2 right-4 -translate-y-1/2 text-slate-400";
+                input.type = "text";
             } else {
-                const icon = document.getElementById('themeIcon');
-                if (icon) {
-                    icon.parentElement.classList.add('spin-once');
-                    setTimeout(() => icon.parentElement.classList.remove('spin-once'), 500);
-                }
+                btnBarcode.className = "search-mode-btn flex-1 px-4 py-3 rounded-xl font-bold bg-orange-600 text-white shadow-lg transition-all btn-press flex items-center justify-center gap-2";
+                btnName.className = "search-mode-btn flex-1 px-4 py-3 rounded-xl font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 shadow-sm transition-all btn-press flex items-center justify-center gap-2";
+                input.placeholder = "امسح الباركود أو اكتبه واضغط Enter...";
+                icon.className = "ph ph-barcode absolute top-1/2 right-4 -translate-y-1/2 text-slate-400";
+                input.type = "text";
+            }
+            
+            input.value = '';
+            input.focus();
+            this.renderPOS();
+        },
+
+        handlePOSKeypress: function(e) {
+            // When Enter is pressed in barcode mode
+            if (e.key === 'Enter' && this.posSearchMode === 'barcode') {
+                e.preventDefault();
+                const barcode = e.target.value.trim();
                 
-                if (document.documentElement.classList.contains('dark')) {
-                    document.documentElement.classList.remove('dark');
-                    localStorage.theme = 'light';
-                    if (icon) icon.className = 'ph-fill ph-moon-stars text-xl';
-                } else {
-                    document.documentElement.classList.add('dark');
-                    localStorage.theme = 'dark';
-                    if (icon) icon.className = 'ph-fill ph-sun text-xl text-yellow-500';
+                if (barcode) {
+                    this.searchByBarcode(barcode);
+                    e.target.value = ''; // Clear input after search
                 }
             }
-        });
-    }
-});
+        },
 
-// Make sure app is initialized
-//window.addEventListener('DOMContentLoaded', () => {
-    //app.init();
-//});
+        handlePOSSearch: function() {
+            // Only filter in real-time for name search mode
+            if (this.posSearchMode === 'name') {
+                this.renderPOS();
+            }
+            // In barcode mode, we wait for Enter key
+        },
 
-    // ========== INITIALIZE APP WHEN READY ==========
-// Wait for everything to load
-function initializeApp() {
-    console.log('Initializing app...');
-    
-    // Check if app is defined
-    if (typeof app !== 'undefined') {
-        // Initialize the app
-        if (app.init) {
-            app.init();
-        }
-        
-        // Add theme button event listener
-        const themeBtn = document.getElementById('themeBtn');
-        if (themeBtn) {
-            themeBtn.addEventListener('click', function() {
-                if (app && app.toggleTheme) {
-                    app.toggleTheme();
-                }
+        searchByBarcode: function(barcode) {
+            if (!barcode) return;
+            
+            // Normalize barcode (remove spaces)
+            const normalizedBarcode = barcode.trim();
+            
+            // Search for product by barcode
+            const product = this.data.products.find(p => {
+                return p.bar && p.bar.toString() === normalizedBarcode && p.stock > 0;
             });
+            
+            if (product) {
+                this.notify(`✓ تم العثور على: ${product.name}`, 'success');
+                
+                // If product has sizes, show size selection
+                if (product.sizes && Object.keys(product.sizes).length > 0) {
+                    const d = document.getElementById('sizeOpts');
+                    d.innerHTML = '';
+                    Object.keys(product.sizes).forEach(s => {
+                        if (product.sizes[s] > 0) { // Only show sizes with stock
+                            d.innerHTML += `<button onclick="app.addCart('${product.id}','${s}');app.closeModal('sizeModal')" class="bg-orange-50 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 px-5 py-2 rounded-xl font-bold hover:bg-orange-600 hover:text-white transition-all shadow-sm border border-orange-100 dark:border-orange-800">${s}</button>`;
+                        }
+                    });
+                    
+                    if (d.innerHTML === '') {
+                        this.notify('لا توجد أحجام متوفرة لهذا المنتج', 'error');
+                        return;
+                    }
+                    
+                    this.openModal('sizeModal');
+                } else {
+                    // No sizes, add directly to cart
+                    this.addCart(product.id, null);
+                }
+            } else {
+                this.notify('✗ المنتج غير موجود أو نفذ من المخزون', 'error');
+                
+                // Visual feedback - flash red
+                const input = document.getElementById('posSearch');
+                input.classList.add('ring-2', 'ring-red-500');
+                setTimeout(() => input.classList.remove('ring-2', 'ring-red-500'), 500);
+            }
         }
-    } else {
-        console.error('App is not defined!');
-        // Try again in 500ms
-        setTimeout(initializeApp, 500);
-    }
-}
 
-// Start initialization
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializeApp);
-} else {
-    // DOM already loaded
-    initializeApp();
-}
+    }; // End of app object
+
+    // Initialize the app when DOM is loaded
+    window.addEventListener('DOMContentLoaded', () => {
+        app.init();
+    });
 </script>
 </body>
 </html>
