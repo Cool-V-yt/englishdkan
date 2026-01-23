@@ -642,7 +642,7 @@ canvas[aria-label*="chart"] {
 <script>
     // Add this to your existing app object - around line 1700+
     
-    app.renderAnalytics = function() {
+   renderAnalytics = function() {
         // Calculate basic stats
         const totalRevenue = this.data.sales.reduce((sum, sale) => sum + sale.total, 0);
         const salesCount = this.data.sales.length;
@@ -1231,7 +1231,7 @@ initMainChart: function() {
             maintainAspectRatio: false,
             plugins: { legend: { display: false } }
         }
-    });
+    })
 },
         // Save to backend
         // Save to backend
@@ -1648,7 +1648,7 @@ editProd = function(id) {
     else if(p.cat === 'clothes') loadData('c', p.sizes, p.sizeBars);
     else if(p.cat === 'perfume') loadData('p', p.sizes, p.sizeBars);
     else document.getElementById('pStock').value = p.stock || 0;
-};
+},
         deleteProd: function(id) {
             if(confirm('هل أنت متأكد من حذف هذا المنتج نهائياً؟')) {
                 this.data.products = this.data.products.filter(x => x.id !== id);
