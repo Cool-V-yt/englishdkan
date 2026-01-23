@@ -1179,7 +1179,7 @@ app.renderAnalyticsCharts = function() {
             setTimeout(() => this.initMainChart(), 500);
         },
         
-app.initSizeInputs = function() {
+initSizeInputs = function() {
     // Helper to create the dual-input box (Qty + Barcode)
     const createInput = (type, label) => `
         <div class="bg-slate-50 dark:bg-slate-700 p-2 rounded-xl border border-slate-200 dark:border-slate-600 flex flex-col gap-2">
@@ -1599,7 +1599,7 @@ destroyAnalyticsCharts: function() {
             }
         },
 
-app.saveProd = function() {
+saveProd = function() {
     const id = document.getElementById('pId').value;
     const cat = document.getElementById('pCat').value;
     
