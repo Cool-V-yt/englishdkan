@@ -755,7 +755,7 @@ canvas[aria-label*="chart"] {
     };
 
 // Add this to ensure charts are properly initialized
-app.renderAnalyticsCharts = function() {
+renderAnalyticsCharts = function() {
     // Destroy existing charts to prevent duplicates
     const chartIds = ['salesTrendChart', 'categoryChart', 'hourlyChart'];
     chartIds.forEach(id => {
