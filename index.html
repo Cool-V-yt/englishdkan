@@ -1175,48 +1175,35 @@ app.renderAnalyticsCharts = function() {
             setTimeout(() => this.initMainChart(), 500);
         },
         
-initSizeInputs = function() {
-    // Helper to create the dual-input box (Qty + Barcode)
-    const createInput = (type, label) => `
-        <div class="bg-slate-50 dark:bg-slate-700 p-2 rounded-xl border border-slate-200 dark:border-slate-600 flex flex-col gap-2">
-            <span class="text-xs font-bold text-slate-500 dark:text-slate-300 text-center uppercase border-b border-slate-200 dark:border-slate-600 pb-1">${label}</span>
-            <div class="flex gap-1">
-                <input type="number" id="qty_${type}" placeholder="عدد" class="w-1/2 bg-white dark:bg-slate-800 dark:text-white border border-slate-200 dark:border-slate-600 rounded-lg p-2 text-center text-sm outline-none focus:border-orange-500" title="الكمية">
-                <input type="text" id="bar_${type}" placeholder="باركود" class="w-1/2 bg-white dark:bg-slate-800 dark:text-white border border-slate-200 dark:border-slate-600 rounded-lg p-2 text-center text-xs font-mono outline-none focus:border-blue-500" title="الباركود">
+// 1. New Multi-Barcode Size Inputs
+    initSizeInputs: function() {
+        const createRow = (prefix, label) => `
+            <div class="flex items-center gap-2 bg-slate-50 dark:bg-slate-700/50 p-2 rounded-xl border border-slate-100 dark:border-slate-600">
+                <span class="w-12 text-xs font-bold text-slate-500 text-center uppercase">${label}</span>
+                <input type="number" id="qty_${prefix}" placeholder="الكمية" class="w-20 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-lg p-2 text-sm outline-none focus:border-orange-500">
+                <input type="text" id="bar_${prefix}" placeholder="باركود الحجم" class="flex-1 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-lg p-2 text-xs font-mono outline-none focus:border-blue-500">
             </div>
-        </div>
-    `;
+        `;
 
-    // 1. Shoes (36-45)
-    const sd = document.getElementById('s_shoes');
-    if (sd) {
-        sd.className = "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3"; // Wider grid for larger inputs
-        sd.innerHTML = '';
-        for(let i=36; i<=45; i++) {
-            sd.innerHTML += createInput(`s_${i}`, `مقاس ${i}`);
+        const sd = document.getElementById('s_shoes');
+        if (sd) {
+            sd.className = "grid grid-cols-1 md:grid-cols-2 gap-2";
+            sd.innerHTML = '';
+            for(let i=36; i<=45; i++) sd.innerHTML += createRow(`s_${i}`, i);
         }
-    }
-    
-    // 2. Clothes (S-XXL)
-    const cd = document.getElementById('s_clothes');
-    if (cd) {
-        cd.className = "grid grid-cols-2 md:grid-cols-3 gap-3";
-        cd.innerHTML = '';
-        ['S','M','L','XL','XXL'].forEach(s => {
-            cd.innerHTML += createInput(`c_${s}`, s);
-        });
-    }
-    
-    // 3. Perfume (ml)
-    const pd = document.getElementById('s_perfume');
-    if (pd) {
-        pd.className = "grid grid-cols-2 gap-3";
-        pd.innerHTML = '';
-        ['3ml','50ml','100ml'].forEach(s => {
-            pd.innerHTML += createInput(`p_${s}`, s);
-        });
-    }
-},
+        
+        const cd = document.getElementById('s_clothes');
+        if (cd) {
+            cd.innerHTML = '';
+            ['S','M','L','XL','XXL'].forEach(s => cd.innerHTML += createRow(`c_${s}`, s));
+        }
+        
+        const pd = document.getElementById('s_perfume');
+        if (pd) {
+            pd.innerHTML = '';
+            ['3ml','50ml','100ml'].forEach(s => pd.innerHTML += createRow(`p_${s}`, s));
+        }
+    },
 initMainChart: function() {
     const ctx = document.getElementById('mainChart');
     if (!ctx) return;
@@ -1340,37 +1327,17 @@ loadFromBackend: async function() {
 },
 
 // Update your save function
-save: function() {
-    this.updateStats();
-    this.saveToBackend(); // Save to server instead of just localStorage
-},
-        // Show save notification
-        showSaveNotification: function(message) {
-            const existingNotification = document.querySelector('.save-notification');
-            if (existingNotification) {
-                existingNotification.remove();
-            }
-            
-            const notification = document.createElement('div');
-            notification.className = 'save-notification fixed bottom-4 left-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50 flex items-center gap-2 animate-pulse';
-            notification.innerHTML = `
-                <i class="ph-bold ph-check-circle"></i>
-                <span>${message}</span>
-            `;
-            
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.style.opacity = '0';
-                notification.style.transform = 'translateY(10px)';
-                setTimeout(() => {
-                    if (notification.parentNode) {
-                        document.body.removeChild(notification);
-                    }
-                }, 300);
-            }, 3000);
-        },
-
+// Fixed Save function
+    save: async function() {
+        localStorage.setItem(DB_KEY, JSON.stringify(this.data));
+        try {
+            await fetch(`${API_URL}/save`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(this.data)
+            });
+        } catch (e) { console.error("Sync failed", e); }
+    },
         toggleTheme: function() {
             const icon = document.getElementById('themeIcon');
             icon.parentElement.classList.add('spin-once');
@@ -1392,22 +1359,16 @@ save: function() {
             this.saveToBackend();
         },
 
-        notify: function(msg, type='success') {
-            const t = document.getElementById('toast');
-            document.getElementById('toastMsg').innerText = msg;
-            const icon = document.getElementById('toastIcon');
-            
-            if(type==='error') {
-                icon.className = 'ph-fill ph-warning-circle text-2xl text-red-500';
-                t.classList.replace('border-orange-500', 'border-red-500');
-            } else {
-                icon.className = 'ph-fill ph-check-circle text-2xl text-orange-500';
-                t.classList.replace('border-red-500', 'border-orange-500');
-            }
-            
-            t.classList.remove('translate-x-[-200%]');
-            setTimeout(() => t.classList.add('translate-x-[-200%]'), 3000);
-        },
+// Fixed Notify function
+    notify: function(msg, type = 'success') {
+        const t = document.getElementById('toast');
+        const m = document.getElementById('toastMsg');
+        const icon = document.getElementById('toastIcon');
+        m.innerText = msg;
+        icon.className = type === 'error' ? 'ph-fill ph-warning-circle text-red-500' : 'ph-fill ph-check-circle text-orange-500';
+        t.classList.remove('translate-x-[-200%]');
+        setTimeout(() => t.classList.add('translate-x-[-200%]'), 3000);
+    },
 
         numInput: function(val) {
             const inp = document.getElementById('loginPass');
@@ -1595,140 +1556,48 @@ destroyAnalyticsCharts: function() {
             }
         },
 
-saveProd = function() {
-    const id = document.getElementById('pId').value;
-    const cat = document.getElementById('pCat').value;
-    
-    let sizes = {};      // Stores Quantity: { "40": 5 }
-    let sizeBars = {};   // Stores Barcodes: { "40": "123456" }
-    let stock = 0;
-    
-    // Helper to gather data from inputs
-    const gatherData = (prefix, key) => {
-        const qEl = document.getElementById(`qty_${prefix}_${key}`);
-        const bEl = document.getElementById(`bar_${prefix}_${key}`);
-        
-        const qty = parseInt(qEl?.value) || 0;
-        const bar = bEl?.value || '';
-        
-        if (qty > 0 || bar !== '') {
-            if(qty > 0) sizes[key] = qty;
-            if(bar !== '') sizeBars[key] = bar;
-            stock += qty;
-        }
-    };
+// 2. Save logic with individual barcodes
+    saveProd: function() {
+        const id = document.getElementById('pId').value;
+        const cat = document.getElementById('pCat').value;
+        let sizes = {}, sizeBars = {}, stock = 0;
 
-    if(cat === 'shoes') {
-        for(let i=36; i<=45; i++) gatherData('s', i);
-    } else if(cat === 'clothes') {
-        ['S','M','L','XL','XXL'].forEach(s => gatherData('c', s));
-    } else if(cat === 'perfume') {
-        ['3ml','50ml','100ml'].forEach(s => gatherData('p', s));
-    } else { 
-        stock = parseInt(document.getElementById('pStock').value) || 0; 
-    }
-    
-    const sellPrice = parseFloat(document.getElementById('pSellPrice').value) || 0;
-    const buyPrice = parseFloat(document.getElementById('pBuyPrice').value) || 0;
-    const profit = sellPrice - buyPrice;
-    const margin = buyPrice > 0 ? ((profit / buyPrice) * 100).toFixed(1) : 0;
-    
-    const prod = {
-        id: id || Date.now().toString(),
-        name: document.getElementById('pName').value,
-        sellPrice: sellPrice,
-        buyPrice: buyPrice,
-        profit: profit,
-        margin: margin,
-        cat: cat,
-        img: document.getElementById('pImgPrev').src,
-        sizes: sizes,          // Saved to MongoDB
-        sizeBars: sizeBars,    // Saved to MongoDB (New Field)
-        stock: stock,
-        price: sellPrice 
-    };
-    
-    if(!prod.name || !prod.sellPrice) { 
-        this.notify('يرجى إدخال البيانات الأساسية', 'error'); 
-        return; 
-    }
-    
-    if(id) {
-        const index = this.data.products.findIndex(x => x.id === id);
-        if(index > -1) this.data.products[index] = prod;
-    } else {
-        this.data.products.push(prod);
-    }
-    
-    this.save(); // This sends the new 'sizeBars' field to your backend
-    this.closeModal('prodModal');
-    this.renderProducts();
-    this.notify(id ? 'تم تعديل المنتج' : 'تمت إضافة المنتج بنجاح');
-};
-        renderProducts: function() {
-            const g = document.getElementById('productGrid');
-            if (!g) return;
-            
-            const s = document.getElementById('searchProd').value.toLowerCase();
-            const filtered = this.filterCat ? this.data.products.filter(p=>p.cat===this.filterCat) : this.data.products;
-            
-            const productsToShow = filtered.filter(p => p.name.toLowerCase().includes(s));
-            
-            g.innerHTML = productsToShow.map((p, i) => {
-                const margin = p.buyPrice ? (((p.sellPrice - p.buyPrice) / p.buyPrice) * 100).toFixed(1) : 0;
-                let marginBadge = '';
-                
-                if (p.buyPrice && p.buyPrice > 0) {
-                    const marginClass = margin > 20 ? 'bg-green-100 text-green-800 border-green-200' :
-                                       margin > 10 ? 'bg-orange-100 text-orange-800 border-orange-200' :
-                                       'bg-red-100 text-red-800 border-red-200';
-                    marginBadge = `<span class="text-[10px] font-bold px-2 py-1 rounded-md border ${marginClass}">${margin}%</span>`;
-                }
-                
-                const placeholderImage = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiNGNUY2RjciLz48cGF0aCBkPSJNNzAgODBMOTAgNjBMMTIwIDkwTDE1MCA2MEwxNzAgODBMMTQwIDEyMEwxNzAgMTYwTDE1MCAxODBMMTIwIDE1MEw5MCAxODBMNzAgMTYwTDEwMCAxMjBMNzAgODBaIiBmaWxsPSIjRkRCQjQwIi8+PC9zdmc+';
-                
-                return `
-                <div class="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 dark:border-slate-700 group stagger-anim" style="animation-delay: ${i*0.05}s">
-                    <div class="h-48 bg-slate-50 dark:bg-slate-700 relative overflow-hidden">
-                        <img src="${p.img}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.onerror=null; this.src='${placeholderImage}'">
-                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all flex flex-col items-center justify-center gap-2 backdrop-blur-sm">
-                            <button onclick="app.prepPrint('${p.id}')" class="w-40 bg-white text-slate-800 px-4 py-2 rounded-lg font-bold text-xs shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform flex items-center justify-center gap-2">
-                                <i class="ph-bold ph-barcode"></i> طباعة باركود
-                            </button>
-                            <div class="flex gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform delay-75">
-                                <button onclick="app.editProd('${p.id}')" class="bg-blue-600 text-white p-2.5 rounded-lg font-bold shadow-lg hover:bg-blue-700">
-                                    <i class="ph-bold ph-pencil-simple"></i>
-                                </button>
-                                <button onclick="app.deleteProd('${p.id}')" class="bg-red-600 text-white p-2.5 rounded-lg font-bold shadow-lg hover:bg-red-700">
-                                    <i class="ph-bold ph-trash"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <span class="absolute top-3 left-3 bg-white/90 backdrop-blur px-2 py-1 rounded-lg text-[10px] font-bold uppercase tracking-widest text-slate-600 shadow-sm">${p.cat}</span>
-                    </div>
-                    <div class="p-5">
-                        <h4 class="font-bold text-lg text-slate-800 dark:text-white mb-1 truncate">${p.name}</h4>
-                        <div class="flex justify-between items-center mt-2 mb-4">
-                            ${marginBadge}
-                            <span class="text-xs text-slate-400 font-bold bg-slate-100 dark:bg-slate-700 px-2 py-1 rounded-md">Stock: ${p.stock}</span>
-                        </div>
-                        <div class="flex justify-between items-end">
-                            <div>
-                                <div class="text-xs text-red-500 font-bold">شراء: ${p.buyPrice ? p.buyPrice.toLocaleString() : '-'}</div>
-                                <div class="text-orange-600 dark:text-orange-400 font-black text-xl">بيع: ${p.sellPrice.toLocaleString()}</div>
-                            </div>
-                            <div class="text-xs text-green-600 font-bold">ربح: ${p.profit ? p.profit.toLocaleString() : '-'}</div>
-                        </div>
-                    </div>
-                </div>
-                `;
-            }).join('');
-            
-            // If no products, show message
-            if (productsToShow.length === 0) {
-                g.innerHTML = '<div class="col-span-full text-center py-12 text-slate-400"><i class="ph ph-package text-4xl mb-3"></i><p>لا توجد منتجات</p></div>';
-            }
-        },
+        const collect = (prefix, key) => {
+            const qty = parseInt(document.getElementById(`qty_${prefix}_${key}`)?.value) || 0;
+            const bar = document.getElementById(`bar_${prefix}_${key}`)?.value || '';
+            if (qty > 0) { sizes[key] = qty; stock += qty; }
+            if (bar) { sizeBars[key] = bar; }
+        };
+
+        if(cat === 'shoes') for(let i=36; i<=45; i++) collect('s', i);
+        else if(cat === 'clothes') ['S','M','L','XL','XXL'].forEach(s => collect('c', s));
+        else if(cat === 'perfume') ['3ml','50ml','100ml'].forEach(s => collect('p', s));
+        else stock = parseInt(document.getElementById('pStock').value) || 0;
+
+        const prod = {
+            id: id || Date.now().toString(),
+            name: document.getElementById('pName').value,
+            sellPrice: parseFloat(document.getElementById('pSellPrice').value) || 0,
+            buyPrice: parseFloat(document.getElementById('pBuyPrice').value) || 0,
+            cat: cat,
+            img: document.getElementById('pImgPrev').src,
+            sizes: sizes,
+            sizeBars: sizeBars, // This is the new field for MongoDB
+            stock: stock
+        };
+
+        if(!prod.name || !prod.sellPrice) return this.notify('يرجى إكمال البيانات', 'error');
+
+        if(id) {
+            const idx = this.data.products.findIndex(x => x.id === id);
+            if(idx > -1) this.data.products[idx] = prod;
+        } else this.data.products.push(prod);
+
+        this.save();
+        this.closeModal('prodModal');
+        this.renderProducts();
+        this.notify('تم حفظ المنتج بنجاح');
+    },
 
 editProd = function(id) {
     const p = this.data.products.find(x => x.id === id);
@@ -2780,14 +2649,38 @@ doPrint: function() {
             }
         },
 
-        handlePOSSearch: function() {
-            // Only filter in real-time for name search mode
-            if (this.posSearchMode === 'name') {
-                this.renderPOS();
-            }
-            // In barcode mode, we wait for Enter key
-        },
+// 3. POS logic: Find product by specific size-barcode
+    handlePOSSearch: function(e) {
+        if (e.key === 'Enter') {
+            const val = e.target.value.trim();
+            if (!val) return;
 
+            // Search all products to see if this barcode belongs to any size
+            let foundProduct = null;
+            let foundSize = null;
+
+            for (const p of this.data.products) {
+                if (p.sizeBars) {
+                    for (const [size, barcode] of Object.entries(p.sizeBars)) {
+                        if (barcode === val) {
+                            foundProduct = p;
+                            foundSize = size;
+                            break;
+                        }
+                    }
+                }
+                if (foundProduct) break;
+            }
+
+            if (foundProduct) {
+                this.addCart(foundProduct.id, foundSize);
+                e.target.value = '';
+                this.notify(`تم إضافة ${foundProduct.name} - مقاس ${foundSize}`);
+            } else {
+                this.notify('الباركود غير مسجل لأي مقاس', 'error');
+            }
+        }
+    },
         searchByBarcode: function(barcode) {
             if (!barcode) return;
             
