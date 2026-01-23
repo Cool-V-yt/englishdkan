@@ -1097,12 +1097,6 @@ app.renderAnalyticsCharts = function() {
                         <option value="acc">اكسسوارات</option>
                     </select>
                 </div>
-                
-                <div class="relative flex items-center gap-2">
-                    <div class="relative w-full">
-                        <i class="ph ph-barcode absolute top-1/2 left-4 -translate-y-1/2 text-slate-400"></i>
-                        <input id="pBar" class="w-full bg-slate-50 dark:bg-slate-700 text-slate-700 dark:text-white border border-slate-100 dark:border-slate-600 p-4 pl-10 rounded-xl font-mono text-sm focus:ring-2 focus:ring-orange-500 outline-none" placeholder="أدخل الباركود يدوياً">
-                    </div>
                     <button onclick="app.regenBar()" class="p-4 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 transition-colors text-slate-500 dark:text-white" title="توليد باركود عشوائي">
                         <i class="ph-bold ph-arrows-clockwise"></i>
                     </button>
@@ -1185,32 +1179,48 @@ app.renderAnalyticsCharts = function() {
             setTimeout(() => this.initMainChart(), 500);
         },
         
-        initSizeInputs: function() {
-            const sd = document.getElementById('s_shoes');
-            if (sd) {
-                sd.innerHTML = '';
-                for(let i=36; i<=45; i++) {
-                    sd.innerHTML += `<input type="number" id="sz_s_${i}" placeholder="${i}" class="border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 dark:text-white rounded-lg text-center p-2 text-sm focus:ring-2 focus:ring-orange-500 outline-none transition-shadow">`;
-                }
-            }
-            
-            const cd = document.getElementById('s_clothes');
-            if (cd) {
-                cd.innerHTML = '';
-                ['S','M','L','XL','XXL'].forEach(s => {
-                    cd.innerHTML += `<input type="number" id="sz_c_${s}" placeholder="${s}" class="border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 dark:text-white rounded-lg text-center p-2 text-sm focus:ring-2 focus:ring-orange-500 outline-none transition-shadow">`;
-                });
-            }
-            
-            const pd = document.getElementById('s_perfume');
-            if (pd) {
-                pd.innerHTML = '';
-                ['3ml','50ml','100ml'].forEach(s => {
-                    pd.innerHTML += `<input type="number" id="sz_p_${s}" placeholder="${s}" class="border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 dark:text-white rounded-lg text-center p-2 text-sm focus:ring-2 focus:ring-orange-500 outline-none transition-shadow">`;
-                });
-            }
-        },
-        
+app.initSizeInputs = function() {
+    // Helper to create the dual-input box (Qty + Barcode)
+    const createInput = (type, label) => `
+        <div class="bg-slate-50 dark:bg-slate-700 p-2 rounded-xl border border-slate-200 dark:border-slate-600 flex flex-col gap-2">
+            <span class="text-xs font-bold text-slate-500 dark:text-slate-300 text-center uppercase border-b border-slate-200 dark:border-slate-600 pb-1">${label}</span>
+            <div class="flex gap-1">
+                <input type="number" id="qty_${type}" placeholder="عدد" class="w-1/2 bg-white dark:bg-slate-800 dark:text-white border border-slate-200 dark:border-slate-600 rounded-lg p-2 text-center text-sm outline-none focus:border-orange-500" title="الكمية">
+                <input type="text" id="bar_${type}" placeholder="باركود" class="w-1/2 bg-white dark:bg-slate-800 dark:text-white border border-slate-200 dark:border-slate-600 rounded-lg p-2 text-center text-xs font-mono outline-none focus:border-blue-500" title="الباركود">
+            </div>
+        </div>
+    `;
+
+    // 1. Shoes (36-45)
+    const sd = document.getElementById('s_shoes');
+    if (sd) {
+        sd.className = "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3"; // Wider grid for larger inputs
+        sd.innerHTML = '';
+        for(let i=36; i<=45; i++) {
+            sd.innerHTML += createInput(`s_${i}`, `مقاس ${i}`);
+        }
+    }
+    
+    // 2. Clothes (S-XXL)
+    const cd = document.getElementById('s_clothes');
+    if (cd) {
+        cd.className = "grid grid-cols-2 md:grid-cols-3 gap-3";
+        cd.innerHTML = '';
+        ['S','M','L','XL','XXL'].forEach(s => {
+            cd.innerHTML += createInput(`c_${s}`, s);
+        });
+    }
+    
+    // 3. Perfume (ml)
+    const pd = document.getElementById('s_perfume');
+    if (pd) {
+        pd.className = "grid grid-cols-2 gap-3";
+        pd.innerHTML = '';
+        ['3ml','50ml','100ml'].forEach(s => {
+            pd.innerHTML += createInput(`p_${s}`, s);
+        });
+    }
+};
 initMainChart: function() {
     const ctx = document.getElementById('mainChart');
     if (!ctx) return;
@@ -1589,69 +1599,76 @@ destroyAnalyticsCharts: function() {
             }
         },
 
-        // Enhanced saveProd function with buy price
-        saveProd: function() {
-            const id = document.getElementById('pId').value;
-            const cat = document.getElementById('pCat').value;
-            let sizes = {}, stock = 0;
-            
-            if(cat === 'shoes') {
-                for(let i=36; i<=45; i++) {
-                    const v = parseInt(document.getElementById(`sz_s_${i}`).value) || 0;
-                    if(v>0) { sizes[i]=v; stock+=v; }
-                }
-            } else if(cat === 'clothes') {
-                ['S','M','L','XL','XXL'].forEach(s => {
-                    const v = parseInt(document.getElementById(`sz_c_${s}`).value) || 0;
-                    if(v>0) { sizes[s]=v; stock+=v; }
-                });
-            } else if(cat === 'perfume') {
-                ['3ml','50ml','100ml'].forEach(s => {
-                    const v = parseInt(document.getElementById(`sz_p_${s}`).value) || 0;
-                    if(v>0) { sizes[s]=v; stock+=v; }
-                });
-            } else { 
-                stock = parseInt(document.getElementById('pStock').value) || 0; 
-            }
-            
-            const sellPrice = parseFloat(document.getElementById('pSellPrice').value) || 0;
-            const buyPrice = parseFloat(document.getElementById('pBuyPrice').value) || 0;
-            const profit = sellPrice - buyPrice;
-            const margin = buyPrice > 0 ? ((profit / buyPrice) * 100).toFixed(1) : 0;
-            
-            const prod = {
-                id: id || Date.now().toString(),
-                name: document.getElementById('pName').value,
-                sellPrice: sellPrice,
-                buyPrice: buyPrice,
-                profit: profit,
-                margin: margin,
-                cat: cat,
-                bar: document.getElementById('pBar').value,
-                img: document.getElementById('pImgPrev').src,
-                sizes: sizes,
-                stock: stock,
-                price: sellPrice // For backward compatibility
-            };
-            
-            if(!prod.name || !prod.sellPrice || !prod.bar) { 
-                this.notify('يرجى إدخال البيانات الأساسية والباركود', 'error'); 
-                return; 
-            }
-            
-            if(id) {
-                const index = this.data.products.findIndex(x => x.id === id);
-                if(index > -1) this.data.products[index] = prod;
-            } else {
-                this.data.products.push(prod);
-            }
-            
-            this.save();
-            this.closeModal('prodModal');
-            this.renderProducts();
-            this.notify(id ? 'تم تعديل المنتج' : 'تمت إضافة المنتج بنجاح');
-        },
+app.saveProd = function() {
+    const id = document.getElementById('pId').value;
+    const cat = document.getElementById('pCat').value;
+    
+    let sizes = {};      // Stores Quantity: { "40": 5 }
+    let sizeBars = {};   // Stores Barcodes: { "40": "123456" }
+    let stock = 0;
+    
+    // Helper to gather data from inputs
+    const gatherData = (prefix, key) => {
+        const qEl = document.getElementById(`qty_${prefix}_${key}`);
+        const bEl = document.getElementById(`bar_${prefix}_${key}`);
         
+        const qty = parseInt(qEl?.value) || 0;
+        const bar = bEl?.value || '';
+        
+        if (qty > 0 || bar !== '') {
+            if(qty > 0) sizes[key] = qty;
+            if(bar !== '') sizeBars[key] = bar;
+            stock += qty;
+        }
+    };
+
+    if(cat === 'shoes') {
+        for(let i=36; i<=45; i++) gatherData('s', i);
+    } else if(cat === 'clothes') {
+        ['S','M','L','XL','XXL'].forEach(s => gatherData('c', s));
+    } else if(cat === 'perfume') {
+        ['3ml','50ml','100ml'].forEach(s => gatherData('p', s));
+    } else { 
+        stock = parseInt(document.getElementById('pStock').value) || 0; 
+    }
+    
+    const sellPrice = parseFloat(document.getElementById('pSellPrice').value) || 0;
+    const buyPrice = parseFloat(document.getElementById('pBuyPrice').value) || 0;
+    const profit = sellPrice - buyPrice;
+    const margin = buyPrice > 0 ? ((profit / buyPrice) * 100).toFixed(1) : 0;
+    
+    const prod = {
+        id: id || Date.now().toString(),
+        name: document.getElementById('pName').value,
+        sellPrice: sellPrice,
+        buyPrice: buyPrice,
+        profit: profit,
+        margin: margin,
+        cat: cat,
+        img: document.getElementById('pImgPrev').src,
+        sizes: sizes,          // Saved to MongoDB
+        sizeBars: sizeBars,    // Saved to MongoDB (New Field)
+        stock: stock,
+        price: sellPrice 
+    };
+    
+    if(!prod.name || !prod.sellPrice) { 
+        this.notify('يرجى إدخال البيانات الأساسية', 'error'); 
+        return; 
+    }
+    
+    if(id) {
+        const index = this.data.products.findIndex(x => x.id === id);
+        if(index > -1) this.data.products[index] = prod;
+    } else {
+        this.data.products.push(prod);
+    }
+    
+    this.save(); // This sends the new 'sizeBars' field to your backend
+    this.closeModal('prodModal');
+    this.renderProducts();
+    this.notify(id ? 'تم تعديل المنتج' : 'تمت إضافة المنتج بنجاح');
+};
         renderProducts: function() {
             const g = document.getElementById('productGrid');
             if (!g) return;
@@ -1717,56 +1734,56 @@ destroyAnalyticsCharts: function() {
             }
         },
 
-        editProd: function(id) {
-            const p = this.data.products.find(x => x.id === id);
-            if(!p) return;
-            
-            this.openModal('prodModal');
-            document.getElementById('prodModalTitle').innerText = 'تعديل منتج';
-            document.getElementById('pId').value = p.id;
-            document.getElementById('pName').value = p.name;
-            document.getElementById('pSellPrice').value = p.sellPrice || p.price;
-            document.getElementById('pBuyPrice').value = p.buyPrice || '';
-            document.getElementById('pCat').value = p.cat;
-            document.getElementById('pBar').value = p.bar;
-            
-            // Handle image
-            const imgPrev = document.getElementById('pImgPrev');
-            if (p.img && p.img !== 'undefined') {
-                imgPrev.src = p.img;
-                imgPrev.classList.remove('hidden');
-            } else {
-                imgPrev.classList.add('hidden');
-            }
-            
-            this.calcProfit();
-            this.toggleSizes();
-            
-            // Clear all size inputs first
-            document.querySelectorAll('#sizeBox input').forEach(input => {
-                input.value = '';
+editProd = function(id) {
+    const p = this.data.products.find(x => x.id === id);
+    if(!p) return;
+    
+    this.openModal('prodModal');
+    document.getElementById('prodModalTitle').innerText = 'تعديل منتج';
+    document.getElementById('pId').value = p.id;
+    document.getElementById('pName').value = p.name;
+    document.getElementById('pSellPrice').value = p.sellPrice || p.price;
+    document.getElementById('pBuyPrice').value = p.buyPrice || '';
+    document.getElementById('pCat').value = p.cat;
+    
+    // Image handling
+    const imgPrev = document.getElementById('pImgPrev');
+    if (p.img && p.img !== 'undefined') {
+        imgPrev.src = p.img;
+        imgPrev.classList.remove('hidden');
+    } else {
+        imgPrev.classList.add('hidden');
+    }
+    
+    this.calcProfit();
+    this.toggleSizes();
+    
+    // Clear all inputs first
+    document.querySelectorAll('#sizeBox input').forEach(i => i.value = '');
+    
+    // Helper to load data
+    const loadData = (prefix, sizesObj, barsObj) => {
+        // Load Quantities
+        if(sizesObj) {
+            Object.entries(sizesObj).forEach(([key, val]) => {
+                const el = document.getElementById(`qty_${prefix}_${key}`);
+                if(el) el.value = val;
             });
-            
-            if(p.cat === 'shoes') {
-                Object.entries(p.sizes).forEach(([sz, val]) => {
-                    const el = document.getElementById(`sz_s_${sz}`);
-                    if(el) el.value = val;
-                });
-            } else if(p.cat === 'clothes') {
-                Object.entries(p.sizes).forEach(([sz, val]) => {
-                    const el = document.getElementById(`sz_c_${sz}`);
-                    if(el) el.value = val;
-                });
-            } else if(p.cat === 'perfume') {
-                Object.entries(p.sizes).forEach(([sz, val]) => {
-                    const el = document.getElementById(`sz_p_${sz}`);
-                    if(el) el.value = val;
-                });
-            } else {
-                document.getElementById('pStock').value = p.stock || 0;
-            }
-        },
+        }
+        // Load Barcodes
+        if(barsObj) {
+            Object.entries(barsObj).forEach(([key, val]) => {
+                const el = document.getElementById(`bar_${prefix}_${key}`);
+                if(el) el.value = val;
+            });
+        }
+    };
 
+    if(p.cat === 'shoes') loadData('s', p.sizes, p.sizeBars);
+    else if(p.cat === 'clothes') loadData('c', p.sizes, p.sizeBars);
+    else if(p.cat === 'perfume') loadData('p', p.sizes, p.sizeBars);
+    else document.getElementById('pStock').value = p.stock || 0;
+};
         deleteProd: function(id) {
             if(confirm('هل أنت متأكد من حذف هذا المنتج نهائياً؟')) {
                 this.data.products = this.data.products.filter(x => x.id !== id);
